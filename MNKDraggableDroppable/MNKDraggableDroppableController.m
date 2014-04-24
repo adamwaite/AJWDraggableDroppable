@@ -7,26 +7,20 @@
 //
 
 #import "MNKDraggableDroppableController.h"
+#import "UIView+MNKDraggable.h"
+#import "UIView+MNKDroppable.h"
 
 @implementation MNKDraggableDroppableController
 
-#pragma mark Init
-
-+ (instancetype)draggableDroppableController
-{
-    return [MNKDraggableDroppableController new];
-}
-
 #pragma mark View Registration
 
-- (UIPanGestureRecognizer *)registerDraggableView:(UIView *)view
+- (UIPanGestureRecognizer *)registerDraggableView:(id<MNKDraggableView>)view
 {
-    return nil;
+    return [(UIView *)view mnk_makeDraggable];
 }
 
-- (void)registerDroppableView:(UIView *)view
+- (void)registerDroppableView:(id<MNKDroppableView>)view
 {
-    
 }
 
 @end

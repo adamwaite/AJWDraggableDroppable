@@ -7,9 +7,14 @@
 //
 
 #import "ViewController.h"
+#import "Draggable.h"
+#import "Droppable.h"
+#import "MNKDraggableDroppable.h"
 
 @interface ViewController ()
-
+@property (weak, nonatomic) IBOutlet Draggable *draggable;
+@property (weak, nonatomic) IBOutlet Droppable *droppable;
+@property (strong, nonatomic) IBOutlet MNKDraggableDroppableController *dragDropController;
 @end
 
 @implementation ViewController
@@ -17,13 +22,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [self.dragDropController registerDraggableView:self.draggable];
+    [self.dragDropController registerDroppableView:self.droppable];
 }
 
 @end

@@ -8,9 +8,26 @@
 
 #import <Foundation/Foundation.h>
 
-@interface MNKDraggableDroppableController : NSObject
+extern NSString * const MNKDraggableDroppableNotificationDraggingDidBegin;
+extern NSString * const MNKDraggableDroppableNotificationDraggingDidEnd;
 
-+ (instancetype)draggableDroppableController;
+typedef NS_ENUM(NSUInteger, MNKDraggableEvent) {
+    MNKDraggableEventDragStarted,
+    MNKDraggableEventDragEnded
+};
+
+@protocol MNKDraggableView <NSObject>
+@optional
+- (CGRect)mnk_draggableViewDragBounds;
+@end
+
+@protocol MNKDroppableView <NSObject>
+@optional
+- (void)mnk_droppableViewApplyRegularState;
+- (void)mnk_droppableViewApplyPendingDropState;
+@end
+
+@interface MNKDraggableDroppableController : NSObject
 
 - (UIPanGestureRecognizer *)registerDraggableView:(UIView *)view;
 - (void)registerDroppableView:(UIView *)view;

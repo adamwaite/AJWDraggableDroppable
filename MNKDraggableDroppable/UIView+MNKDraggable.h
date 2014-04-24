@@ -10,6 +10,11 @@
 
 @interface UIView (MNKDraggable)
 
-
+/**
+ *  Adds draggable behaviour. Customise the behaviour using the MNKDraggable protocol.
+ *
+ *  @return UIPAnGestureRecogniser attached to allow draggable behaviour
+ */
+- (UIPanGestureRecognizer *)mnk_makeDraggable;
 
 @end

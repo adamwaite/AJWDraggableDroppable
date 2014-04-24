@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1FB0200B8ED14861AA623580 /* libPods-MNKDraggableDroppableExampleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0AE2554B3C04CF8A61B7F5D /* libPods-MNKDraggableDroppableExampleTests.a */; };
+		9983EFA619094C9600947FEA /* Draggable.m in Sources */ = {isa = PBXBuildFile; fileRef = 9983EFA519094C9600947FEA /* Draggable.m */; };
+		9983EFA919094CA200947FEA /* Droppable.m in Sources */ = {isa = PBXBuildFile; fileRef = 9983EFA819094CA200947FEA /* Droppable.m */; };
 		99E572A81907B16F0087BEF0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99E572A71907B16F0087BEF0 /* Foundation.framework */; };
 		99E572AA1907B16F0087BEF0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99E572A91907B16F0087BEF0 /* CoreGraphics.framework */; };
 		99E572AC1907B16F0087BEF0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99E572AB1907B16F0087BEF0 /* UIKit.framework */; };
@@ -39,6 +41,10 @@
 
 /* Begin PBXFileReference section */
 		2FE2AF5DFFB54A0585024696 /* Pods-MNKDraggableDroppableExampleTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MNKDraggableDroppableExampleTests.xcconfig"; path = "Pods/Pods-MNKDraggableDroppableExampleTests.xcconfig"; sourceTree = "<group>"; };
+		9983EFA419094C9600947FEA /* Draggable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Draggable.h; sourceTree = "<group>"; };
+		9983EFA519094C9600947FEA /* Draggable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Draggable.m; sourceTree = "<group>"; };
+		9983EFA719094CA200947FEA /* Droppable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Droppable.h; sourceTree = "<group>"; };
+		9983EFA819094CA200947FEA /* Droppable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Droppable.m; sourceTree = "<group>"; };
 		99E572A41907B16F0087BEF0 /* MNKDraggableDroppableExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MNKDraggableDroppableExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99E572A71907B16F0087BEF0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		99E572A91907B16F0087BEF0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -134,6 +140,10 @@
 				99E572B91907B16F0087BEF0 /* Main.storyboard */,
 				99E572BC1907B16F0087BEF0 /* ViewController.h */,
 				99E572BD1907B16F0087BEF0 /* ViewController.m */,
+				9983EFA419094C9600947FEA /* Draggable.h */,
+				9983EFA519094C9600947FEA /* Draggable.m */,
+				9983EFA719094CA200947FEA /* Droppable.h */,
+				9983EFA819094CA200947FEA /* Droppable.m */,
 				99E572BF1907B16F0087BEF0 /* Images.xcassets */,
 				99E572AE1907B16F0087BEF0 /* Supporting Files */,
 			);
@@ -318,10 +328,12 @@
 			files = (
 				99E572E9190879720087BEF0 /* MNKDraggableDroppableController.m in Sources */,
 				99E572BE1907B16F0087BEF0 /* ViewController.m in Sources */,
+				9983EFA619094C9600947FEA /* Draggable.m in Sources */,
 				99E572B81907B16F0087BEF0 /* AppDelegate.m in Sources */,
 				99E572E5190874690087BEF0 /* UIView+MNKDroppable.m in Sources */,
 				99E572B41907B16F0087BEF0 /* main.m in Sources */,
 				99E572E21908745D0087BEF0 /* UIView+MNKDraggable.m in Sources */,
+				9983EFA919094CA200947FEA /* Droppable.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
