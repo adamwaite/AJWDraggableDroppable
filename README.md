@@ -4,7 +4,7 @@ MNKDraggableDroppable provides a drag and drop API for iOS.
 
 A draggable view can be moved with user interaction. A droppable view provides an area in which a draggable view can be dropped. MNKDraggableDroppable allows you to identify a view as a draggable or droppable, and provides a mechanism for responding to events involving the two.
 
-MNKDraggableDroppable was created for the make-offer interaction in maneki for iOS, an upcoming app I'm writing.
+MNKDraggableDroppable was created for the make-offer interaction in maneki for iOS.
 
 ## Installation
 
