@@ -20,7 +20,7 @@
 {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        self.backgroundColor = [UIColor lightGrayColor];
+        self.backgroundColor = [self restingColor];
     }
     return self;
 }
@@ -29,17 +29,34 @@
 
 - (void)droppableViewApplyRegularState
 {
-    self.backgroundColor = [UIColor lightGrayColor];
+    self.backgroundColor = [self restingColor];
 }
 
 - (void)droppableViewApplyPendingState
 {
-    self.backgroundColor = [UIColor colorWithRed:0.09 green:0.56 blue:0.09 alpha:0.4];
+    self.backgroundColor = [self pendingColor];
 }
 
 - (void)droppableViewApplyPendingDropState
 {
-    self.backgroundColor = [UIColor colorWithRed:0.09 green:0.56 blue:0.09 alpha:0.65];
+    self.backgroundColor = [self hoverColor];
+}
+
+#pragma mark Colors
+
+- (UIColor *)restingColor
+{
+    return [[UIColor lightGrayColor] colorWithAlphaComponent:0.4];
+}
+
+- (UIColor *)pendingColor
+{
+    return [UIColor colorWithRed:0.09 green:0.56 blue:0.09 alpha:0.4];
+}
+
+- (UIColor *)hoverColor
+{
+    return [UIColor colorWithRed:0.09 green:0.56 blue:0.09 alpha:0.8];
 }
 
 @end

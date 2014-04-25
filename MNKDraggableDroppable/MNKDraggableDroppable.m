@@ -143,7 +143,35 @@
 
 - (void)draggableDragGestureDidContinue:(UIPanGestureRecognizer *)sender
 {
+    UIView *draggable = sender.view;
+    __block UIView *hoveringDropZone;
+
+    [self.droppables enumerateObjectsUsingBlock:^(id droppable, BOOL *stop) {
+        
+        CGPoint draggableCenterRelativeToWindow = [draggable.superview convertPoint:draggable.center toView:droppable];
     
+        if (CGRectContainsPoint([(UIView *)droppable bounds], draggableCenterRelativeToWindow)) {
+            
+            if ([droppable respondsToSelector:@selector(droppableViewApplyPendingDropState)]) {
+                [droppable droppableViewApplyPendingDropState];
+            }
+            
+            hoveringDropZone = droppable;
+            *stop = YES;
+            
+        }
+        
+        else {
+            
+            [self.droppables enumerateObjectsUsingBlock:^(id droppable, BOOL *stop) {
+                if ([droppable respondsToSelector:@selector(droppableViewApplyPendingState)]) {
+                    [(id<MNKDroppableView>)droppable droppableViewApplyPendingState];
+                }
+            }];
+            
+        }
+        
+    }];
 }
 
 - (void)draggableDragGestureDidEnd:(UIPanGestureRecognizer *)sender

@@ -321,6 +321,10 @@ describe(@"MNKDraggableDroppable", ^{
             
         });
         
+        pending_(@"Draggable hover over a droppable", ^{
+            // CODE FROM HERE...
+        });
+        
     });
     
 });
