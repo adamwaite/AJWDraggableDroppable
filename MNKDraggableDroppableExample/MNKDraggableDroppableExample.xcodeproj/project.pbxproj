@@ -45,6 +45,7 @@
 		995687F61909C84600A07A3D /* MNKDraggableDroppableSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MNKDraggableDroppableSpec.m; sourceTree = "<group>"; };
 		995687F81909D11800A07A3D /* MNKDraggableGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MNKDraggableGestureRecognizer.h; sourceTree = "<group>"; };
 		995687F91909D11800A07A3D /* MNKDraggableGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MNKDraggableGestureRecognizer.m; sourceTree = "<group>"; };
+		995687FC1909E3D200A07A3D /* MNKDraggableDroppable+Test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MNKDraggableDroppable+Test.h"; sourceTree = "<group>"; };
 		9983EFA419094C9600947FEA /* Draggable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Draggable.h; sourceTree = "<group>"; };
 		9983EFA519094C9600947FEA /* Draggable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Draggable.m; sourceTree = "<group>"; };
 		9983EFA719094CA200947FEA /* Droppable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Droppable.h; sourceTree = "<group>"; };
@@ -164,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				995687F61909C84600A07A3D /* MNKDraggableDroppableSpec.m */,
+				995687FC1909E3D200A07A3D /* MNKDraggableDroppable+Test.h */,
 				99E572CD1907B16F0087BEF0 /* Supporting Files */,
 			);
 			path = MNKDraggableDroppableExampleTests;

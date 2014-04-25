@@ -8,6 +8,7 @@
 
 #import "Kiwi.h"
 #import "MNKDraggableDroppable.h"
+#import "MNKDraggableDroppable+Test.h"
 #import "MNKDraggableGestureRecognizer.h"
 
 @interface Draggable : UIView <MNKDraggableView>
@@ -28,6 +29,10 @@ describe(@"MNKDraggableDroppable", ^{
     
     specify(^{
         [[subject should] beKindOfClass:[MNKDraggableDroppable class]];
+    });
+    
+    specify(^{
+        [[subject should] respondToSelector:@selector(setDelegate:)];
     });
     
     #pragma mark Draggable Registration
@@ -247,6 +252,31 @@ describe(@"MNKDraggableDroppable", ^{
                 });
                 
             });
+            
+        });
+        
+    });
+    
+    describe(@"Drag gesture", ^{
+        
+        describe(@"Gesture start", ^{
+            
+            describe(@"delegate communication", ^{
+                
+                KWMock *mockDelegate = [KWMock nullMockForProtocol:@protocol(MNKDraggableDroppableDelegate)];
+                
+                beforeEach(^{
+                    subject.delegate = (id<MNKDraggableDroppableDelegate>)mockDelegate;
+                });
+                
+                it(@"should notify the delegate on gesture start", ^{
+                    [[mockDelegate shouldEventually] receive:@selector(draggableDroppable:draggableGestureDidBegin:draggable:)];
+                    [subject draggableDragGestureDidStart:[KWMock nullMockForClass:[UIPanGestureRecognizer class]]];
+                });
+                
+            });
+            
+            
             
         });
         

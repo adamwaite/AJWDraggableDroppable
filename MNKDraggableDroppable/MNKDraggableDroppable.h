@@ -45,6 +45,15 @@ typedef NS_ENUM(NSUInteger, MNKDraggableEvent) {
 
 @optional
 
+/**
+ *  Notifies the delegate that a draggable drag gesture was started
+ *
+ *  @param draggableDroppable: delegating instance
+ *  @param gestureRecognizer:  active gesture recogniser on the draggable
+ *  @param draggable:          the draggable subject to user touch
+ */
+- (void)draggableDroppable:(MNKDraggableDroppable *)draggableDroppable draggableGestureDidBegin:(UIPanGestureRecognizer *)gestureRecognizer draggable:(UIView *)draggable;
+
 @end
 
 
@@ -122,6 +131,14 @@ typedef NS_ENUM(NSUInteger, MNKDraggableEvent) {
  *  A collection of droppable views.
  */
 @property (copy, nonatomic, readonly) NSSet *droppables;
+
+/**
+ *  Conforms to <MNKDraggableDroppableDelegate> to recieve events involving draggables and droppables
+ *
+ *  @see MNKDraggableDroppableDelegate
+ *
+ */
+@property (weak, nonatomic) id<MNKDraggableDroppableDelegate> delegate;
 
 /**
  *  Returns an MNKDraggableDroppable instance. Written in the interest of code readability.

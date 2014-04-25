@@ -86,7 +86,7 @@
     [self.mutableDroppables removeObject:view];
 }
 
-#pragma mark Draggable Gesture Handler
+#pragma mark Draggable Gesture Handling
 
 - (void)draggableDragged:(UIPanGestureRecognizer *)sender
 {
@@ -95,27 +95,28 @@
     
     UIView *draggable = sender.view;
     
-    __unused CGRect dragBounds = ([draggable respondsToSelector:@selector(draggableViewDragBounds)]) ? [(id<MNKDraggableView>)draggable draggableViewDragBounds] : CGRectInfinite;
+    CGRect dragBounds = ([draggable respondsToSelector:@selector(draggableViewDragBounds)]) ? [(id<MNKDraggableView>)draggable draggableViewDragBounds] : CGRectInfinite;
     
     switch (sender.state) {
             
         case UIGestureRecognizerStateBegan: {
             startTouchLocation = [sender locationInView:nil];
+            [self draggableDragGestureDidStart:sender];
             break;
         }
             
         case UIGestureRecognizerStateChanged: {
-            
             // TODO: grab location of the touch in the view relative to window and return if the touch point is outside the bounds
-            
             touchLocation = [sender locationInView:nil];
             sender.view.center = CGPointMake(touchLocation.x, touchLocation.y);
+            [self draggableDragGestureDidContinue:sender];
             break;
         }
             
         case UIGestureRecognizerStateCancelled:
         case UIGestureRecognizerStateEnded: {
             startTouchLocation = CGPointZero;
+            [self draggableDragGestureDidEnd:sender];
             break;
         }
             
@@ -124,6 +125,23 @@
         }
             
     }
+    
+}
+
+- (void)draggableDragGestureDidStart:(UIPanGestureRecognizer *)sender
+{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(draggableDroppable:draggableGestureDidBegin:draggable:)]) {
+        [self.delegate draggableDroppable:self draggableGestureDidBegin:sender draggable:sender.view];
+    }
+}
+
+- (void)draggableDragGestureDidContinue:(UIPanGestureRecognizer *)sender
+{
+    
+}
+
+- (void)draggableDragGestureDidEnd:(UIPanGestureRecognizer *)sender
+{
     
 }
 
