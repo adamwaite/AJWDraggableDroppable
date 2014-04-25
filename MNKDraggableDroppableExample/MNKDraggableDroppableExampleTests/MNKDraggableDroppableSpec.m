@@ -22,9 +22,10 @@ SPEC_BEGIN(MNKDraggableDroppableSpec)
 describe(@"MNKDraggableDroppable", ^{
     
     __block MNKDraggableDroppable *subject;
+    UIView *referenceView = [UIView new];
     
     beforeEach(^{
-        subject = [MNKDraggableDroppable new];
+        subject = [MNKDraggableDroppable controllerWithReferenceView:referenceView];
     });
     
     specify(^{
@@ -35,6 +36,10 @@ describe(@"MNKDraggableDroppable", ^{
         [[subject should] respondToSelector:@selector(setDelegate:)];
     });
     
+    specify(^{
+        [[subject.referenceView should] equal:referenceView];
+    });
+        
     #pragma mark Draggable Registration
     
     describe(@"Draggable registration", ^{

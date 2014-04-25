@@ -131,6 +131,12 @@ typedef NS_ENUM(NSUInteger, MNKDraggableEvent) {
  */
 @interface MNKDraggableDroppable : NSObject
 
+
+/**
+ *  The reference view containing draggables and droppables, typically a UIViewController view.
+ */
+@property (weak, nonatomic) IBOutlet UIView *referenceView;
+
 /**
  *  A collection of draggable views.
  */
@@ -147,14 +153,30 @@ typedef NS_ENUM(NSUInteger, MNKDraggableEvent) {
  *  @see MNKDraggableDroppableDelegate
  *
  */
-@property (weak, nonatomic) id<MNKDraggableDroppableDelegate> delegate;
+@property (weak, nonatomic) IBOutlet id<MNKDraggableDroppableDelegate> delegate;
 
 /**
- *  Returns an MNKDraggableDroppable instance. Written in the interest of code readability.
+ *  If YES, the draggable will snap back to it's initial location if not dropped in a droppable. Default: NO.
+ */
+@property (nonatomic) BOOL snapsDraggablesBackToDragStartOnMiss;
+
+/**
+ *  Returns an MNKDraggableDroppable instance with a specified view as it's reference view. Returns an allocated `MNKDraggableDroppable` initialised through `initWithRefernceView:`.
+ *
+ *  @param view: The view to serve as a reference for drag drop behaviour.
  *
  *  @return MNKDraggableDroppable instance
  */
-+ (instancetype)controller;
++ (instancetype)controllerWithReferenceView:(UIView *)view;
+
+/**
+ *  Designated initialiser
+ *
+ *  @param  view: The view to serve as a reference for drag drop behaviour.
+ *
+ *  @return MNKDraggableDroppable instance
+ */
+- (instancetype)initWithReferenceView:(UIView *)view;
 
 /**
  *  Adds draggable behaviour to the UIView and adds the view to the draggables collection.

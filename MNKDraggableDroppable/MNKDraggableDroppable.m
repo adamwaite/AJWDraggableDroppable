@@ -9,11 +9,15 @@
 #import "MNKDraggableDroppable.h"
 #import "MNKDraggableGestureRecognizer.h"
 
-@interface MNKDraggableDroppable ()
+@interface MNKDraggableDroppable () <UIDynamicAnimatorDelegate>
 
 @property (strong, nonatomic) NSMutableSet *mutableDraggables;
-
 @property (strong, nonatomic) NSMutableSet *mutableDroppables;
+@property (strong, nonatomic) UIDynamicAnimator *dynamicAnimator;
+
+@property (nonatomic) CGPoint dragTouchStart;
+@property (nonatomic) CGPoint draggableStartCenter;
+@property (strong, nonatomic) UISnapBehavior *dragSnapBackBehaviour;
 
 @end
 
@@ -21,19 +25,59 @@
 
 #pragma mark Init
 
-+ (instancetype)controller
++ (instancetype)controllerWithReferenceView:(UIView *)view
 {
-    return [[[self class] alloc] init];
+    return [[[self class] alloc] initWithReferenceView:view];
 }
 
-- (instancetype)init
+- (id)init
 {
     self = [super init];
     if (self) {
-        self.mutableDraggables = [NSMutableSet set];
-        self.mutableDroppables = [NSMutableSet set];
+        [self configure];
     }
     return self;
+}
+
+- (instancetype)initWithReferenceView:(UIView *)view
+{
+    self = [super init];
+    if (self) {
+        _referenceView = view;
+        [self configure];
+    }
+    return self;
+}
+
+- (void)configure
+{
+    _mutableDraggables = [NSMutableSet set];
+    _mutableDroppables = [NSMutableSet set];
+}
+
+- (void)setReferenceView:(UIView *)referenceView
+{
+    _referenceView = referenceView;
+    self.dynamicAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:self.referenceView];
+    self.dynamicAnimator.delegate = self;
+}
+
+#pragma mark Description
+
+- (NSString *)description
+{
+    NSDictionary *output = @{
+        @"Reference view": (self.referenceView) ? self.referenceView : [NSNull null],
+        @"Delegate": (self.delegate) ? (id)self.delegate : [NSNull null],
+        @"Draggables count": @([self.draggables count]),
+        @"Droppables count": @([self.droppables count]),
+    };
+    return [NSString stringWithFormat:@"%@ %p: %@", [self class], self, output];
+}
+
+- (NSString *)debugDescription
+{
+    return [self description];
 }
 
 #pragma mark Accessors
@@ -90,17 +134,17 @@
 
 - (void)draggableDragged:(UIPanGestureRecognizer *)sender
 {
-    static CGPoint startTouchLocation;
     CGPoint touchLocation;
     
     UIView *draggable = sender.view;
+    self.draggableStartCenter = draggable.center;
     
     CGRect dragBounds = ([draggable respondsToSelector:@selector(draggableViewDragBounds)]) ? [(id<MNKDraggableView>)draggable draggableViewDragBounds] : CGRectInfinite;
     
     switch (sender.state) {
             
         case UIGestureRecognizerStateBegan: {
-            startTouchLocation = [sender locationInView:nil];
+            self.dragTouchStart = [sender locationInView:nil];
             [self draggableDragGestureDidStart:sender];
             break;
         }
@@ -115,7 +159,7 @@
             
         case UIGestureRecognizerStateCancelled:
         case UIGestureRecognizerStateEnded: {
-            startTouchLocation = CGPointZero;
+            self.dragTouchStart = CGPointZero;
             [self draggableDragGestureDidEnd:sender];
             break;
         }
@@ -130,6 +174,12 @@
 
 - (void)draggableDragGestureDidStart:(UIPanGestureRecognizer *)sender
 {
+    
+    if (self.snapsDraggablesBackToDragStartOnMiss) {
+        self.dragSnapBackBehaviour = [[UISnapBehavior alloc] initWithItem:sender.view snapToPoint:self.draggableStartCenter];
+        self.dragSnapBackBehaviour.damping = 0.65;
+    }
+    
     if (self.delegate && [self.delegate respondsToSelector:@selector(draggableDroppable:draggableGestureDidBegin:draggable:)]) {
         [self.delegate draggableDroppable:self draggableGestureDidBegin:sender draggable:sender.view];
     }
@@ -176,6 +226,11 @@
 
 - (void)draggableDragGestureDidEnd:(UIPanGestureRecognizer *)sender
 {
+    
+    if (self.dragSnapBackBehaviour) {
+        [self.dynamicAnimator addBehavior:self.dragSnapBackBehaviour];
+    }
+    
     if (self.delegate && [self.delegate respondsToSelector:@selector(draggableDroppable:draggableGestureDidEnd:draggable:)]) {
         [self.delegate draggableDroppable:self draggableGestureDidEnd:sender draggable:sender.view];
     }
@@ -185,6 +240,14 @@
             [(id<MNKDroppableView>)droppable droppableViewApplyRegularState];
         }
     }];
+   
+}
+
+#pragma mark UIDynamicAnimatorDelegate
+
+- (void)dynamicAnimatorDidPause:(UIDynamicAnimator *)animator
+{
+    [self.dynamicAnimator removeAllBehaviors];
 }
 
 @end
