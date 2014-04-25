@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		1FB0200B8ED14861AA623580 /* libPods-MNKDraggableDroppableExampleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0AE2554B3C04CF8A61B7F5D /* libPods-MNKDraggableDroppableExampleTests.a */; };
+		995687F41909C60100A07A3D /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 995687F31909C60100A07A3D /* README.md */; };
+		995687F71909C84600A07A3D /* MNKDraggableDroppableSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 995687F61909C84600A07A3D /* MNKDraggableDroppableSpec.m */; };
+		995687FB1909D36E00A07A3D /* MNKDraggableGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 995687F91909D11800A07A3D /* MNKDraggableGestureRecognizer.m */; };
 		9983EFA619094C9600947FEA /* Draggable.m in Sources */ = {isa = PBXBuildFile; fileRef = 9983EFA519094C9600947FEA /* Draggable.m */; };
 		9983EFA919094CA200947FEA /* Droppable.m in Sources */ = {isa = PBXBuildFile; fileRef = 9983EFA819094CA200947FEA /* Droppable.m */; };
 		99E572A81907B16F0087BEF0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99E572A71907B16F0087BEF0 /* Foundation.framework */; };
@@ -23,10 +26,7 @@
 		99E572C81907B16F0087BEF0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99E572A71907B16F0087BEF0 /* Foundation.framework */; };
 		99E572C91907B16F0087BEF0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99E572AB1907B16F0087BEF0 /* UIKit.framework */; };
 		99E572D11907B16F0087BEF0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 99E572CF1907B16F0087BEF0 /* InfoPlist.strings */; };
-		99E572D31907B16F0087BEF0 /* MNKDraggableDroppableExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 99E572D21907B16F0087BEF0 /* MNKDraggableDroppableExampleTests.m */; };
-		99E572E21908745D0087BEF0 /* UIView+MNKDraggable.m in Sources */ = {isa = PBXBuildFile; fileRef = 99E572E11908745D0087BEF0 /* UIView+MNKDraggable.m */; };
-		99E572E5190874690087BEF0 /* UIView+MNKDroppable.m in Sources */ = {isa = PBXBuildFile; fileRef = 99E572E4190874690087BEF0 /* UIView+MNKDroppable.m */; };
-		99E572E9190879720087BEF0 /* MNKDraggableDroppableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99E572E8190879720087BEF0 /* MNKDraggableDroppableController.m */; };
+		99E572E9190879720087BEF0 /* MNKDraggableDroppable.m in Sources */ = {isa = PBXBuildFile; fileRef = 99E572E8190879720087BEF0 /* MNKDraggableDroppable.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +41,10 @@
 
 /* Begin PBXFileReference section */
 		2FE2AF5DFFB54A0585024696 /* Pods-MNKDraggableDroppableExampleTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MNKDraggableDroppableExampleTests.xcconfig"; path = "Pods/Pods-MNKDraggableDroppableExampleTests.xcconfig"; sourceTree = "<group>"; };
+		995687F31909C60100A07A3D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		995687F61909C84600A07A3D /* MNKDraggableDroppableSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MNKDraggableDroppableSpec.m; sourceTree = "<group>"; };
+		995687F81909D11800A07A3D /* MNKDraggableGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MNKDraggableGestureRecognizer.h; sourceTree = "<group>"; };
+		995687F91909D11800A07A3D /* MNKDraggableGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MNKDraggableGestureRecognizer.m; sourceTree = "<group>"; };
 		9983EFA419094C9600947FEA /* Draggable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Draggable.h; sourceTree = "<group>"; };
 		9983EFA519094C9600947FEA /* Draggable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Draggable.m; sourceTree = "<group>"; };
 		9983EFA719094CA200947FEA /* Droppable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Droppable.h; sourceTree = "<group>"; };
@@ -63,14 +67,8 @@
 		99E572C61907B16F0087BEF0 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		99E572CE1907B16F0087BEF0 /* MNKDraggableDroppableExampleTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MNKDraggableDroppableExampleTests-Info.plist"; sourceTree = "<group>"; };
 		99E572D01907B16F0087BEF0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		99E572D21907B16F0087BEF0 /* MNKDraggableDroppableExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MNKDraggableDroppableExampleTests.m; sourceTree = "<group>"; };
-		99E572E01908745D0087BEF0 /* UIView+MNKDraggable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MNKDraggable.h"; sourceTree = "<group>"; };
-		99E572E11908745D0087BEF0 /* UIView+MNKDraggable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MNKDraggable.m"; sourceTree = "<group>"; };
-		99E572E3190874690087BEF0 /* UIView+MNKDroppable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MNKDroppable.h"; sourceTree = "<group>"; };
-		99E572E4190874690087BEF0 /* UIView+MNKDroppable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MNKDroppable.m"; sourceTree = "<group>"; };
-		99E572E61908747F0087BEF0 /* MNKDraggableDroppable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MNKDraggableDroppable.h; sourceTree = "<group>"; };
-		99E572E7190879720087BEF0 /* MNKDraggableDroppableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MNKDraggableDroppableController.h; sourceTree = "<group>"; };
-		99E572E8190879720087BEF0 /* MNKDraggableDroppableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MNKDraggableDroppableController.m; sourceTree = "<group>"; };
+		99E572E7190879720087BEF0 /* MNKDraggableDroppable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MNKDraggableDroppable.h; sourceTree = "<group>"; };
+		99E572E8190879720087BEF0 /* MNKDraggableDroppable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MNKDraggableDroppable.m; sourceTree = "<group>"; };
 		A0AE2554B3C04CF8A61B7F5D /* libPods-MNKDraggableDroppableExampleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MNKDraggableDroppableExampleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -102,6 +100,7 @@
 		99E5729B1907B16F0087BEF0 = {
 			isa = PBXGroup;
 			children = (
+				995687F31909C60100A07A3D /* README.md */,
 				99E572DF1908745D0087BEF0 /* MNKDraggableDroppable */,
 				99E572AD1907B16F0087BEF0 /* MNKDraggableDroppableExample */,
 				99E572CC1907B16F0087BEF0 /* MNKDraggableDroppableExampleTests */,
@@ -164,7 +163,7 @@
 		99E572CC1907B16F0087BEF0 /* MNKDraggableDroppableExampleTests */ = {
 			isa = PBXGroup;
 			children = (
-				99E572D21907B16F0087BEF0 /* MNKDraggableDroppableExampleTests.m */,
+				995687F61909C84600A07A3D /* MNKDraggableDroppableSpec.m */,
 				99E572CD1907B16F0087BEF0 /* Supporting Files */,
 			);
 			path = MNKDraggableDroppableExampleTests;
@@ -182,13 +181,10 @@
 		99E572DF1908745D0087BEF0 /* MNKDraggableDroppable */ = {
 			isa = PBXGroup;
 			children = (
-				99E572E61908747F0087BEF0 /* MNKDraggableDroppable.h */,
-				99E572E7190879720087BEF0 /* MNKDraggableDroppableController.h */,
-				99E572E8190879720087BEF0 /* MNKDraggableDroppableController.m */,
-				99E572E01908745D0087BEF0 /* UIView+MNKDraggable.h */,
-				99E572E11908745D0087BEF0 /* UIView+MNKDraggable.m */,
-				99E572E3190874690087BEF0 /* UIView+MNKDroppable.h */,
-				99E572E4190874690087BEF0 /* UIView+MNKDroppable.m */,
+				99E572E7190879720087BEF0 /* MNKDraggableDroppable.h */,
+				99E572E8190879720087BEF0 /* MNKDraggableDroppable.m */,
+				995687F81909D11800A07A3D /* MNKDraggableGestureRecognizer.h */,
+				995687F91909D11800A07A3D /* MNKDraggableGestureRecognizer.m */,
 			);
 			name = MNKDraggableDroppable;
 			path = ../MNKDraggableDroppable;
@@ -274,6 +270,7 @@
 			files = (
 				99E572C01907B16F0087BEF0 /* Images.xcassets in Resources */,
 				99E572B21907B16F0087BEF0 /* InfoPlist.strings in Resources */,
+				995687F41909C60100A07A3D /* README.md in Resources */,
 				99E572BB1907B16F0087BEF0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -326,13 +323,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				99E572E9190879720087BEF0 /* MNKDraggableDroppableController.m in Sources */,
+				995687FB1909D36E00A07A3D /* MNKDraggableGestureRecognizer.m in Sources */,
+				99E572E9190879720087BEF0 /* MNKDraggableDroppable.m in Sources */,
 				99E572BE1907B16F0087BEF0 /* ViewController.m in Sources */,
 				9983EFA619094C9600947FEA /* Draggable.m in Sources */,
 				99E572B81907B16F0087BEF0 /* AppDelegate.m in Sources */,
-				99E572E5190874690087BEF0 /* UIView+MNKDroppable.m in Sources */,
 				99E572B41907B16F0087BEF0 /* main.m in Sources */,
-				99E572E21908745D0087BEF0 /* UIView+MNKDraggable.m in Sources */,
 				9983EFA919094CA200947FEA /* Droppable.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -341,7 +337,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				99E572D31907B16F0087BEF0 /* MNKDraggableDroppableExampleTests.m in Sources */,
+				995687F71909C84600A07A3D /* MNKDraggableDroppableSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

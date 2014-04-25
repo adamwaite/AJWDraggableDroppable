@@ -50,7 +50,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
-                <customObject id="mvL-0X-L53" customClass="MNKDraggableDroppableController"/>
+                <customObject id="mvL-0X-L53" customClass="MNKDraggableDroppable"/>
             </objects>
             <point key="canvasLocation" x="249" y="130"/>
         </scene>

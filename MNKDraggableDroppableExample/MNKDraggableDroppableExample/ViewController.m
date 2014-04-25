@@ -14,7 +14,7 @@
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet Draggable *draggable;
 @property (weak, nonatomic) IBOutlet Droppable *droppable;
-@property (strong, nonatomic) IBOutlet MNKDraggableDroppableController *dragDropController;
+@property (strong, nonatomic) IBOutlet MNKDraggableDroppable *dragDropController;
 @end
 
 @implementation ViewController
