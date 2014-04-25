@@ -54,6 +54,15 @@ typedef NS_ENUM(NSUInteger, MNKDraggableEvent) {
  */
 - (void)draggableDroppable:(MNKDraggableDroppable *)draggableDroppable draggableGestureDidBegin:(UIPanGestureRecognizer *)gestureRecognizer draggable:(UIView *)draggable;
 
+/**
+ *  Notifies the delegate that a draggable drag gesture ended
+ *
+ *  @param draggableDroppable: delegating instance
+ *  @param gestureRecognizer:  active gesture recogniser on the draggable
+ *  @param draggable:          the draggable subject to user touch
+ */
+- (void)draggableDroppable:(MNKDraggableDroppable *)draggableDroppable draggableGestureDidEnd:(UIPanGestureRecognizer *)gestureRecognizer draggable:(UIView *)draggable;
+
 @end
 
 

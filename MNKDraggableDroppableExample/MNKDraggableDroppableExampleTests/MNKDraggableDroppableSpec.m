@@ -259,15 +259,17 @@ describe(@"MNKDraggableDroppable", ^{
     
     describe(@"Drag gesture", ^{
         
+        KWMock *mockDelegate = [KWMock nullMockForProtocol:@protocol(MNKDraggableDroppableDelegate)];
+        
+        Droppable *mockDroppable = [Droppable new];
+        
+        beforeEach(^{
+            subject.delegate = (id<MNKDraggableDroppableDelegate>)mockDelegate;
+        });
+        
         describe(@"Gesture start", ^{
             
             describe(@"delegate communication", ^{
-                
-                KWMock *mockDelegate = [KWMock nullMockForProtocol:@protocol(MNKDraggableDroppableDelegate)];
-                
-                beforeEach(^{
-                    subject.delegate = (id<MNKDraggableDroppableDelegate>)mockDelegate;
-                });
                 
                 it(@"should notify the delegate on gesture start", ^{
                     [[mockDelegate shouldEventually] receive:@selector(draggableDroppable:draggableGestureDidBegin:draggable:)];
@@ -276,7 +278,46 @@ describe(@"MNKDraggableDroppable", ^{
                 
             });
             
+            describe(@"MKDroppableView state communication", ^{
+                
+                beforeEach(^{
+                    [mockDroppable stub:@selector(droppableViewApplyPendingState) andReturn:nil];
+                    [subject registerDroppableView:(id)mockDroppable];
+                });
+                
+                it(@"receieves the pending state", ^{
+                    [[mockDroppable shouldEventually] receive:@selector(droppableViewApplyPendingState)];
+                    [subject draggableDragGestureDidStart:[KWMock nullMockForClass:[UIPanGestureRecognizer class]]];
+                });
+                
+            });
             
+        });
+        
+        describe(@"Gesture end", ^{
+            
+            describe(@"delegate communication", ^{
+                
+                it(@"should notify the delegate on gesture start", ^{
+                    [[mockDelegate shouldEventually] receive:@selector(draggableDroppable:draggableGestureDidEnd:draggable:)];
+                    [subject draggableDragGestureDidEnd:[KWMock nullMockForClass:[UIPanGestureRecognizer class]]];
+                });
+                
+            });
+            
+            describe(@"MKDroppableView state communication", ^{
+                
+                beforeEach(^{
+                    [mockDroppable stub:@selector(droppableViewApplyRegularState) andReturn:nil];
+                    [subject registerDroppableView:(id)mockDroppable];
+                });
+                
+                it(@"receieves the pending state", ^{
+                    [[mockDroppable shouldEventually] receive:@selector(droppableViewApplyRegularState)];
+                    [subject draggableDragGestureDidEnd:[KWMock nullMockForClass:[UIPanGestureRecognizer class]]];
+                });
+                
+            });
             
         });
         

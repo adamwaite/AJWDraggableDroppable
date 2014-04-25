@@ -133,6 +133,12 @@
     if (self.delegate && [self.delegate respondsToSelector:@selector(draggableDroppable:draggableGestureDidBegin:draggable:)]) {
         [self.delegate draggableDroppable:self draggableGestureDidBegin:sender draggable:sender.view];
     }
+    
+    [self.droppables enumerateObjectsUsingBlock:^(id droppable, BOOL *stop) {
+        if ([droppable respondsToSelector:@selector(droppableViewApplyPendingState)]) {
+            [(id<MNKDroppableView>)droppable droppableViewApplyPendingState];
+        }
+    }];
 }
 
 - (void)draggableDragGestureDidContinue:(UIPanGestureRecognizer *)sender
@@ -142,7 +148,15 @@
 
 - (void)draggableDragGestureDidEnd:(UIPanGestureRecognizer *)sender
 {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(draggableDroppable:draggableGestureDidEnd:draggable:)]) {
+        [self.delegate draggableDroppable:self draggableGestureDidEnd:sender draggable:sender.view];
+    }
     
+    [self.droppables enumerateObjectsUsingBlock:^(id droppable, BOOL *stop) {
+        if ([droppable respondsToSelector:@selector(droppableViewApplyRegularState)]) {
+            [(id<MNKDroppableView>)droppable droppableViewApplyRegularState];
+        }
+    }];
 }
 
 @end

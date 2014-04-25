@@ -56,7 +56,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="draggable" width="125" height="125"/>
+        <image name="draggable" width="62" height="62"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

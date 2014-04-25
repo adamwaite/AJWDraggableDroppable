@@ -15,4 +15,6 @@
 
 @implementation Draggable
 
+#pragma mark MNKDraggableView
+
 @end
