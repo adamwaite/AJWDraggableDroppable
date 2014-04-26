@@ -13,17 +13,15 @@
 
 @property (strong, nonatomic) NSMutableSet *mutableDraggables;
 @property (strong, nonatomic) NSMutableSet *mutableDroppables;
-@property (strong, nonatomic) UIDynamicAnimator *dynamicAnimator;
 
-@property (nonatomic) CGPoint dragTouchStart;
-@property (nonatomic) CGPoint draggableStartCenter;
+@property (strong, nonatomic) UIDynamicAnimator *dynamicAnimator;
 @property (strong, nonatomic) UISnapBehavior *dragSnapBackBehaviour;
 
 @end
 
 @implementation MNKDraggableDroppable
 
-#pragma mark Init
+#pragma mark Initialisation
 
 + (instancetype)controllerWithReferenceView:(UIView *)view
 {
@@ -92,7 +90,7 @@
     return [NSSet setWithSet:self.mutableDroppables];
 }
 
-#pragma mark Draggable Registration
+#pragma mark View Registration
 
 - (UIPanGestureRecognizer *)registerDraggableView:(UIView *)view
 {
@@ -118,8 +116,6 @@
     [self.mutableDraggables removeObject:view];
 }
 
-#pragma mark Droppable Registration
-
 - (void)registerDroppableView:(UIView *)view
 {
     [self.mutableDroppables addObject:view];
@@ -132,34 +128,23 @@
 
 #pragma mark Draggable Gesture Handling
 
-- (void)draggableDragged:(UIPanGestureRecognizer *)sender
+- (void)draggableDragged:(MNKDraggableGestureRecognizer *)sender
 {
-    CGPoint touchLocation;
-    
-    UIView *draggable = sender.view;
-    self.draggableStartCenter = draggable.center;
-    
-    CGRect dragBounds = ([draggable respondsToSelector:@selector(draggableViewDragBounds)]) ? [(id<MNKDraggableView>)draggable draggableViewDragBounds] : CGRectInfinite;
-    
+  
     switch (sender.state) {
             
         case UIGestureRecognizerStateBegan: {
-            self.dragTouchStart = [sender locationInView:nil];
             [self draggableDragGestureDidStart:sender];
             break;
         }
             
         case UIGestureRecognizerStateChanged: {
-            // TODO: grab location of the touch in the view relative to window and return if the touch point is outside the bounds
-            touchLocation = [sender locationInView:nil];
-            sender.view.center = CGPointMake(touchLocation.x, touchLocation.y);
             [self draggableDragGestureDidContinue:sender];
             break;
         }
             
         case UIGestureRecognizerStateCancelled:
         case UIGestureRecognizerStateEnded: {
-            self.dragTouchStart = CGPointZero;
             [self draggableDragGestureDidEnd:sender];
             break;
         }
@@ -172,14 +157,8 @@
     
 }
 
-- (void)draggableDragGestureDidStart:(UIPanGestureRecognizer *)sender
+- (void)draggableDragGestureDidStart:(MNKDraggableGestureRecognizer *)sender
 {
-    
-    if (self.snapsDraggablesBackToDragStartOnMiss) {
-        self.dragSnapBackBehaviour = [[UISnapBehavior alloc] initWithItem:sender.view snapToPoint:self.draggableStartCenter];
-        self.dragSnapBackBehaviour.damping = 0.65;
-    }
-    
     if (self.delegate && [self.delegate respondsToSelector:@selector(draggableDroppable:draggableGestureDidBegin:draggable:)]) {
         [self.delegate draggableDroppable:self draggableGestureDidBegin:sender draggable:sender.view];
     }
@@ -191,15 +170,15 @@
     }];
 }
 
-- (void)draggableDragGestureDidContinue:(UIPanGestureRecognizer *)sender
+- (void)draggableDragGestureDidContinue:(MNKDraggableGestureRecognizer *)sender
 {
     UIView *draggable = sender.view;
     __block UIView *hoveringDropZone;
-
+    
     [self.droppables enumerateObjectsUsingBlock:^(id droppable, BOOL *stop) {
         
         CGPoint draggableCenterRelativeToWindow = [draggable.superview convertPoint:draggable.center toView:droppable];
-    
+        
         if (CGRectContainsPoint([(UIView *)droppable bounds], draggableCenterRelativeToWindow)) {
             
             if ([droppable respondsToSelector:@selector(droppableViewApplyPendingDropState)]) {
@@ -224,11 +203,10 @@
     }];
 }
 
-- (void)draggableDragGestureDidEnd:(UIPanGestureRecognizer *)sender
+- (void)draggableDragGestureDidEnd:(MNKDraggableGestureRecognizer *)sender
 {
-    
-    if (self.dragSnapBackBehaviour) {
-        [self.dynamicAnimator addBehavior:self.dragSnapBackBehaviour];
+    if (self.snapsDraggablesBackToDragStartOnMiss) {
+        [self.dynamicAnimator addBehavior:[sender snapBackBehaviour]];
     }
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(draggableDroppable:draggableGestureDidEnd:draggable:)]) {
@@ -240,7 +218,8 @@
             [(id<MNKDroppableView>)droppable droppableViewApplyRegularState];
         }
     }];
-   
+    
+    [sender resetState];
 }
 
 #pragma mark UIDynamicAnimatorDelegate
@@ -249,5 +228,6 @@
 {
     [self.dynamicAnimator removeAllBehaviors];
 }
+
 
 @end

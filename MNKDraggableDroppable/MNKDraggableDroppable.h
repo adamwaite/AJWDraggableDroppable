@@ -7,14 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MNKDraggableView.h"
+#import "MNKDroppableView.h"
+#import "MNKDraggableDroppableDelegate.h"
 
-@class MNKDraggableDroppable;
 
-
-#pragma mark Constants and Types
+#pragma mark Constants and Type Defines
 
 ///--------------------
-/// @name Constants
+/// @name Constants and Type Defines
 ///--------------------
 
 /**
@@ -32,95 +33,7 @@ typedef NS_ENUM(NSUInteger, MNKDraggableEvent) {
 };
 
 
-#pragma mark MNKDraggableDroppableDelegate Protocol
-
-///--------------------
-/// @name MNKDraggableDroppableDelegate
-///--------------------
-
-/**
- *  The MNKDraggableView protocol is adopted to customise draggable view behaviour.
- */
-@protocol MNKDraggableDroppableDelegate <NSObject>
-
-@optional
-
-/**
- *  Notifies the delegate that a draggable drag gesture was started
- *
- *  @param draggableDroppable: delegating instance
- *  @param gestureRecognizer:  active gesture recogniser on the draggable
- *  @param draggable:          the draggable subject to user touch
- */
-- (void)draggableDroppable:(MNKDraggableDroppable *)draggableDroppable draggableGestureDidBegin:(UIPanGestureRecognizer *)gestureRecognizer draggable:(UIView *)draggable;
-
-/**
- *  Notifies the delegate that a draggable drag gesture ended
- *
- *  @param draggableDroppable: delegating instance
- *  @param gestureRecognizer:  active gesture recogniser on the draggable
- *  @param draggable:          the draggable subject to user touch
- */
-- (void)draggableDroppable:(MNKDraggableDroppable *)draggableDroppable draggableGestureDidEnd:(UIPanGestureRecognizer *)gestureRecognizer draggable:(UIView *)draggable;
-
-@end
-
-
-#pragma mark MNKDraggableView Protocol
-
-///--------------------
-/// @name MNKDraggableView
-///--------------------
-
-/**
- *  The MNKDraggableView protocol is adopted to customise draggable view behaviour.
- */
-@protocol MNKDraggableView <NSObject>
-
-@optional
-
-/**
- *  The bounds relative to the screen in which the view's center may not exit during drag gesture. Defaults to infinite surface area.
- *
- *  @return CGRect describing the bounds limit (perhaps a superview bounds?)
- */
-- (CGRect)draggableViewDragBounds;
-
-@end
-
-
-#pragma mark MNKDroppableView Protocol
-
-///--------------------
-/// @name MNKDroppableView
-///--------------------
-
-/**
- *  The MNKDroppableView protocol is adopted to customise droppable view behaviour.
- */
-@protocol MNKDroppableView <NSObject>
-
-@optional
-
-/**
- *  Applies a resting state for the view once a drag gesture is no longer in motion.
- */
-- (void)droppableViewApplyRegularState;
-
-/**
- *  Applies a pending state for the view once a drag gesture is in motion but no draggable has entered the droppable bounds.
- */
-- (void)droppableViewApplyPendingState;
-
-/**
- *  Applies a state indicating that ending the current drag gesture will drop a draggable into the droppable bounds.
- */
-- (void)droppableViewApplyPendingDropState;
-
-@end
-
-
-#pragma mark MNKDraggableDroppable Class
+#pragma mark MNKDraggableDroppable
 
 ///--------------------
 /// @name MNKDraggableDroppable
@@ -177,6 +90,17 @@ typedef NS_ENUM(NSUInteger, MNKDraggableEvent) {
  *  @return MNKDraggableDroppable instance
  */
 - (instancetype)initWithReferenceView:(UIView *)view;
+
+@end
+
+
+#pragma mark MNKDraggableDroppable+ViewRegistration
+
+///--------------------
+/// @name MNKDraggableDroppable+ViewRegistration
+///--------------------
+
+@interface MNKDraggableDroppable (ViewRegistration)
 
 /**
  *  Adds draggable behaviour to the UIView and adds the view to the draggables collection.

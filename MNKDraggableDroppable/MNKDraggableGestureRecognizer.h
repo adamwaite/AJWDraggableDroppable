@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <UIKit/UIGestureRecognizerSubclass.h>
 
 @interface MNKDraggableGestureRecognizer : UIPanGestureRecognizer
+
+@property (nonatomic) CGPoint dragTouchStartPoint;
+@property (nonatomic) CGPoint viewDragStartCenter;
+
+- (UISnapBehavior *)snapBackBehaviour;
+- (void)resetState;
 
 @end

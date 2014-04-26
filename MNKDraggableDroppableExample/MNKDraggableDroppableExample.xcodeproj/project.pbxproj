@@ -42,6 +42,9 @@
 
 /* Begin PBXFileReference section */
 		2FE2AF5DFFB54A0585024696 /* Pods-MNKDraggableDroppableExampleTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MNKDraggableDroppableExampleTests.xcconfig"; path = "Pods/Pods-MNKDraggableDroppableExampleTests.xcconfig"; sourceTree = "<group>"; };
+		994AD730190BDA4E00516432 /* MNKDraggableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MNKDraggableView.h; sourceTree = "<group>"; };
+		994AD731190BDA5600516432 /* MNKDroppableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MNKDroppableView.h; sourceTree = "<group>"; };
+		994AD732190BDA6700516432 /* MNKDraggableDroppableDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MNKDraggableDroppableDelegate.h; sourceTree = "<group>"; };
 		995687F31909C60100A07A3D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		995687F61909C84600A07A3D /* MNKDraggableDroppableSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MNKDraggableDroppableSpec.m; sourceTree = "<group>"; };
 		995687F81909D11800A07A3D /* MNKDraggableGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MNKDraggableGestureRecognizer.h; sourceTree = "<group>"; };
@@ -101,6 +104,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		994AD733190BDA6C00516432 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				994AD730190BDA4E00516432 /* MNKDraggableView.h */,
+				994AD731190BDA5600516432 /* MNKDroppableView.h */,
+				994AD732190BDA6700516432 /* MNKDraggableDroppableDelegate.h */,
+			);
+			name = Protocols;
+			sourceTree = "<group>";
+		};
+		994AD735190BDA8400516432 /* Gestures */ = {
+			isa = PBXGroup;
+			children = (
+				995687F81909D11800A07A3D /* MNKDraggableGestureRecognizer.h */,
+				995687F91909D11800A07A3D /* MNKDraggableGestureRecognizer.m */,
+			);
+			name = Gestures;
+			sourceTree = "<group>";
+		};
 		995687FF190A5BA900A07A3D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -206,8 +228,8 @@
 			children = (
 				99E572E7190879720087BEF0 /* MNKDraggableDroppable.h */,
 				99E572E8190879720087BEF0 /* MNKDraggableDroppable.m */,
-				995687F81909D11800A07A3D /* MNKDraggableGestureRecognizer.h */,
-				995687F91909D11800A07A3D /* MNKDraggableGestureRecognizer.m */,
+				994AD733190BDA6C00516432 /* Protocols */,
+				994AD735190BDA8400516432 /* Gestures */,
 			);
 			name = MNKDraggableDroppable;
 			path = ../MNKDraggableDroppable;
