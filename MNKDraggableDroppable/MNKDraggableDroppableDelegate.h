@@ -36,7 +36,7 @@
 ///--------------------
 
 /**
- *  The MNKDraggableView protocol is adopted to customise draggable view behaviour.
+ *  The `delegate` of a `MNKDraggableDroppable` object should adopt the `MNKDraggableDroppableDelegate` protocol to be notified of any drag and drop events involving any views identified as draggable or droppable.
  */
 @protocol MNKDraggableDroppableDelegate <NSObject>
 
@@ -57,17 +57,8 @@
  *  @param draggableDroppable: delegating instance
  *  @param gestureRecognizer:  active gesture recogniser on the draggable
  *  @param draggable:          the draggable subject to user touch
+ *  @param droppable:          the droppable under the draggable or nil
  */
-- (void)draggableDroppable:(MNKDraggableDroppable *)draggableDroppable draggableGestureDidEnd:(UIPanGestureRecognizer *)gestureRecognizer draggable:(UIView *)draggable;
-
-/**
- *  Notifies the delegate that a draggable was dropped into a droppable
- *
- *  @param draggableDroppable: delegating instance
- *  @param draggable:          the view that was dragged
- *  @param droppable:          the view the draggable was dropped into
- *  @param gestureRecognizer:  active gesture recogniser on the draggable
- */
-- (void)draggableDroppable:(MNKDraggableDroppable *)draggableDroppable draggable:(UIView *)draggable didDropIntoDroppable:(UIView *)droppable gesture:(UIPanGestureRecognizer *)gestureRecognizer;
+- (void)draggableDroppable:(MNKDraggableDroppable *)draggableDroppable draggableGestureDidEnd:(UIPanGestureRecognizer *)gestureRecognizer draggable:(UIView *)draggable droppable:(UIView *)droppable;
 
 @end

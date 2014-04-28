@@ -38,7 +38,6 @@
     struct {
         unsigned int draggableGestureDidBegin : 1;
         unsigned int draggableGestureDidEnd : 1;
-        unsigned int draggableDroppedInDroppable : 1;
     } _delegateSelectorResponseFlags;
 }
 
@@ -125,8 +124,7 @@
 {
     _delegate = delegate;
     _delegateSelectorResponseFlags.draggableGestureDidBegin = [delegate respondsToSelector:@selector(draggableDroppable:draggableGestureDidBegin:draggable:)];
-    _delegateSelectorResponseFlags.draggableGestureDidEnd = [delegate respondsToSelector:@selector(draggableDroppable:draggableGestureDidEnd:draggable:)];
-    _delegateSelectorResponseFlags.draggableDroppedInDroppable = [delegate respondsToSelector:@selector(draggableDroppable:draggable:didDropIntoDroppable:gesture:)];
+    _delegateSelectorResponseFlags.draggableGestureDidEnd = [delegate respondsToSelector:@selector(draggableDroppable:draggableGestureDidEnd:draggable:droppable:)];
 }
 
 #pragma mark View Registration
@@ -225,28 +223,20 @@
 {
     
     UIView *droppableUnderDraggable = [self droppableUnderDraggable:sender.draggable];
-    if (droppableUnderDraggable != nil) {
-        
-        if (_delegateSelectorResponseFlags.draggableGestureDidEnd) {
-            [self.delegate draggableDroppable:self draggable:sender.draggable didDropIntoDroppable:droppableUnderDraggable gesture:sender];
-        }
     
+    if (_delegateSelectorResponseFlags.draggableGestureDidEnd) {
+        [self.delegate draggableDroppable:self draggableGestureDidEnd:sender draggable:sender.view droppable:droppableUnderDraggable];
+    }
+    
+    if (droppableUnderDraggable != nil) {
         if (self.snapsDraggablesToDroppableSnapPointOnHit) {
             [self snapDragabbleToDroppableSnapPoint:sender droppable:droppableUnderDraggable];
         }
-        
     }
-    
     else {
-        
         if (self.snapsDraggablesBackToDragStartOnMiss) {
             [self snapDraggableToStart:sender];
         }
-        
-    }
-    
-    if (self.delegate && [self.delegate respondsToSelector:@selector(draggableDroppable:draggableGestureDidEnd:draggable:)]) {
-        [self.delegate draggableDroppable:self draggableGestureDidEnd:sender draggable:sender.view];
     }
     
     [self applyRegularStateOnDroppables];

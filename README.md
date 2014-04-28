@@ -1,10 +1,20 @@
 ![header](resources/header.png)
 
-MNKDraggableDroppable provides a drag and drop API for iOS.
+MNKDraggableDroppable provides a rich and customisable drag and drop API for iOS apps.
+
+**Note** - MNKDraggableDroppable is still in early stages of development.
 
 A draggable view can be moved with user interaction. A droppable view provides an area in which a draggable view can be dropped. MNKDraggableDroppable allows you to identify a view as a draggable or droppable, and provides a mechanism for responding to events involving the two.
 
-MNKDraggableDroppable was created for the make-offer interaction in maneki for iOS.
+Features:
+- Identify a view as draggable or droppable in a single line of code.
+- Add draggable behaviour to a view without having to go through the routine `UIPanGestureRecognizer` rigmarole.
+- Respond to events involving draggable and droppable views (example: a draggable was dropped on a droppable).
+- Apply visual states to draggable and droppable views during the different phases of a drag and drop gesture.
+- Animate a draggable view back to it's starting location, or a defined drop location with UIKitDynamics snap behaviours.
+- Manage separate collections of draggable and droppable views.
+
+The library was created for the make-offer interaction in maneki for iOS.
 
 ## Installation
 
@@ -16,11 +26,117 @@ Install with [CocoaPods](http://cocoapods.org):
 
 ## Usage
 
-TODO.
+### Overview
 
-## API
+The API consists of the following components:
 
-TODO.
+- `MNKDraggableDroppable` - Instances of `MNKDraggableDroppable` are responsible for managing a collection of draggable views, a collection of droppable views, and notifying other components of your application about any events that happen involving the two.
+
+- `<MNKDraggableDroppableDelegate>` - The `delegate` of a `MNKDraggableDroppable` object should adopt the `MNKDraggableDroppableDelegate` protocol to be notified of any drag and drop events involving any views identified as draggable or droppable.
+
+- `<MNKDraggableView>` - The `MNKDraggableView` protocol is adopted by `UIView` subclasses to be registered as draggable. It's methods allow behaviour and appearance customisation during user drag and drop interaction.
+
+- `<MNKDroppableView>` - The `MNKDroppableView` protocol is adopted by `UIView` subclasses to be registered as droppable. It's methods allow behaviour and appearance customisation during user drag and drop interaction.
+
+### Basic Use
+
+A basic usage is given below:
+
+```
+#import "MNKDraggableDroppable.h"
+#import "ViewController.h"
+
+@interface ViewController () <MNKDraggableDroppableDelegate>
+@property (strong, nonatomic) MNKDraggableDroppable *dragDropController;
+@end
+
+@implementation ViewController
+
+#pragma mark View Lifecycle
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+
+    // Note: the next 6 lines of code would typically be achieved in Interface Builder with defined outlets. Code given here for demonstrative purpose.
+    self.dragDropController = [MNKDraggableDroppable controllerWithReferenceView:self.view];
+    self.dragDropController.delegate = self;
+    UIView *draggable = [[UIView alloc] initWithFrame:CGRectMake(50, 50, 50, 50)];
+    UIView *droppable = [[UIView alloc] initWithFrame:CGRectMake(0, 100, 200, 200)];
+    [self.view addSubView:draggable];
+    [self.view addSubView:droppable];
+
+    [self.dragDropController registerDraggableView:draggable];
+    [self.dragDropController registerDroppableView:droppable];
+}
+
+- (void)draggableDroppable:(MNKDraggableDroppable *)draggableDroppable draggable:(UIView *)draggable didDropIntoDroppable:(UIView *)droppable gesture:(UIPanGestureRecognizer *)gestureRecognizer
+{
+    NSLog(@"Draggable (%@) was dropped into droppable (%@)", draggable, droppable);
+}
+
+```
+
+### Registering Draggable Views
+
+To register a view as draggable:
+```
+[self.dragDropController registerDraggableView:view];
+```
+
+This adds a `UIPanGestureRecognizer` to the view that allows a user to drag the view around the screen with touch. The method returns the gesture recognizer should you wish to set your class as it's `delegate` or define additional actions.
+
+To deregister a draggable view:
+```
+[self.dragDropController deregisterDraggableView:view];
+```
+
+### Registering Droppable Views
+
+Similarly:
+```
+[self.dragDropController registerDroppableView:view];
+[self.dragDropController deregisterDroppableView:view];
+```
+
+### Responding to Drag and Drop Events (`<MNKDraggableDroppableDelegate>`)
+
+Respond to drag and drop events by adopting the `MNKDraggableDroppableDelegate` protocol and setting the `MNKDraggableDroppable` delegate to the conforming class.
+
+- Respond to a draggable drag start:
+
+```
+- (void)draggableDroppable:(MNKDraggableDroppable *)draggableDroppable draggableGestureDidBegin:(UIPanGestureRecognizer *)gestureRecognizer draggable:(UIView *)draggable
+{
+    NSLog(@"Draggable drag gesture started: %@", log);
+}
+```
+
+- Respond to a draggable drag end (and a drop into a droppable):
+
+```
+- (void)draggableDroppable:(MNKDraggableDroppable *)draggableDroppable draggableGestureDidEnd:(UIPanGestureRecognizer *)gestureRecognizer draggable:(UIView *)draggable droppable:(UIView *)droppable
+{
+    if (droppable) {
+      NSLog(@"Dropped!");
+    }
+    else {
+      NSLog(@"Missed!");  
+    }
+}
+```
+
+### Customising a Draggable UI During Interaction (`<MNKDraggableView>`)
+
+TODO
+
+### Customising a Droppable UI During Interaction (`<MNKDroppableView>`)
+
+TODO
+
+### Animating a Draggable on Interaction Completion
+
+TODO
 
 ## Contact
 

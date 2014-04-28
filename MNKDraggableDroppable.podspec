@@ -2,12 +2,9 @@ Pod::Spec.new do |s|
 
   s.name         = "MNKDraggableDroppable"
   s.version      = "0.0.0.1"
-  s.summary      = "MNKDraggableDroppable provides a drag and drop API on iOS."
+  s.summary      = "MNKDraggableDroppable provides a rich and customisable drag and drop API for iOS apps."
 
   s.description  = <<-DESC
-MNKDraggableDroppable provides a drag and drop API for iOS.
-
-A draggable view can be moved with user interaction. A droppable view provides an area in which a draggable view can be dropped. MNKDraggableDroppable allows you to identify a view as a draggable or droppable, and provides a mechanism for responding to events involving the two.
 DESC
 
   s.homepage     = "https://github.com/adamwaite/MNKDraggableDroppable"

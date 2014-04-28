@@ -42,30 +42,21 @@
     NSLog(@"Draggable drag gesture started: %@", log);
 }
 
-- (void)draggableDroppable:(MNKDraggableDroppable *)draggableDroppable draggableGestureDidEnd:(UIPanGestureRecognizer *)gestureRecognizer draggable:(UIView *)draggable
+- (void)draggableDroppable:(MNKDraggableDroppable *)draggableDroppable draggableGestureDidEnd:(UIPanGestureRecognizer *)gestureRecognizer draggable:(UIView *)draggable droppable:(UIView *)droppable
 {
-    NSDictionary *log = @{
-        @"MNKDraggableDroppable:": draggableDroppable,
-        @"Getsure:": gestureRecognizer,
-        @"Draggable": draggable
-    };
-    
-    NSLog(@"Draggable drag gesture ended: %@", log);
-}
-
-- (void)draggableDroppable:(MNKDraggableDroppable *)draggableDroppable draggable:(UIView *)draggable didDropIntoDroppable:(UIView *)droppable gesture:(UIPanGestureRecognizer *)gestureRecognizer
-{
-    NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Draggable %@ was dropped into droppable: %@", nil), draggable, droppable];
-    [[[UIAlertView alloc] initWithTitle:nil message:message delegate:nil cancelButtonTitle:@"💣" otherButtonTitles:nil] show];
-    
     NSDictionary *log = @{
         @"MNKDraggableDroppable:": draggableDroppable,
         @"Getsure:": gestureRecognizer,
         @"Draggable": draggable,
-        @"Droppable": droppable
+        @"Droppable": (droppable) ? droppable : [NSNull null]
     };
     
-    NSLog(@"Draggable was dropped into droppable: %@", log);   
+    NSLog(@"Draggable drag gesture ended: %@", log);
+    
+    if (droppable) {
+        NSLog(@"Dropped!");
+    }
+    
 }
 
 #pragma mark Actions
