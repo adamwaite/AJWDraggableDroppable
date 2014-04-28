@@ -69,9 +69,17 @@ typedef NS_ENUM(NSUInteger, MNKDraggableEvent) {
 @property (weak, nonatomic) IBOutlet id<MNKDraggableDroppableDelegate> delegate;
 
 /**
- *  If YES, the draggable will snap back to it's initial location if not dropped in a droppable. Default: NO.
+ *  If YES the draggable will snap back to it's initial location if not dropped in a droppable. Default: NO.
  */
 @property (nonatomic) BOOL snapsDraggablesBackToDragStartOnMiss;
+
+/**
+ *  If YES the draggable will snap to the snap point of a droppable if dropped in it's bounds. The snap point is either the view's centre coordinate, or sepcified by the <MNKDroppableView> droppableSnapPoint method. Default: YES.
+ *
+ *  @see <MNKDroppableView>
+ *
+ */
+@property (nonatomic) BOOL snapsDraggablesToDroppableSnapPointOnHit;
 
 /**
  *  Returns an MNKDraggableDroppable instance with a specified view as it's reference view. Returns an allocated `MNKDraggableDroppable` initialised through `initWithRefernceView:`.

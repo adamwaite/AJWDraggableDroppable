@@ -13,6 +13,7 @@
 
 @property (nonatomic) CGPoint dragTouchStartPoint;
 @property (nonatomic) CGPoint viewDragStartCenter;
+@property (weak, nonatomic, readonly) UIView *draggable;
 
 - (UISnapBehavior *)snapBackBehaviour;
 - (void)resetState;

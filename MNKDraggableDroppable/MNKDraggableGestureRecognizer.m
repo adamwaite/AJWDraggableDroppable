@@ -51,6 +51,13 @@
     [super touchesCancelled:touches withEvent:event];
 }
 
+#pragma mark Accessors
+
+- (UIView *)draggable
+{
+    return self.view;
+}
+
 #pragma mark State Reset
 
 - (void)resetState

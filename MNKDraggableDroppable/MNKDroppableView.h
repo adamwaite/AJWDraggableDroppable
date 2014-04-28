@@ -34,4 +34,9 @@
  */
 - (void)droppableViewApplyPendingDropState;
 
+/**
+ *  The snap to point should a draggable be dropped in the adopting view's bounds.
+ */
+- (CGPoint)droppableSnapPoint;
+
 @end

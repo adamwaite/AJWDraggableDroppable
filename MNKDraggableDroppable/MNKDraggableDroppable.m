@@ -8,12 +8,20 @@
 
 #import "MNKDraggableDroppable.h"
 #import "MNKDraggableGestureRecognizer.h"
+#import "UIView+MNKDroppable.h"
 
 @interface MNKDraggableDroppable () <UIDynamicAnimatorDelegate>
 
+{
+    struct {
+        unsigned int draggableGestureDidBegin : 1;
+        unsigned int draggableGestureDidEnd : 1;
+        unsigned int draggableDroppedInDroppable : 1;
+    } _delegateSelectorResponseFlags;
+}
+
 @property (strong, nonatomic) NSMutableSet *mutableDraggables;
 @property (strong, nonatomic) NSMutableSet *mutableDroppables;
-
 @property (strong, nonatomic) UIDynamicAnimator *dynamicAnimator;
 @property (strong, nonatomic) UISnapBehavior *dragSnapBackBehaviour;
 
@@ -49,6 +57,7 @@
 
 - (void)configure
 {
+    _snapsDraggablesToDroppableSnapPointOnHit = YES;
     _mutableDraggables = [NSMutableSet set];
     _mutableDroppables = [NSMutableSet set];
 }
@@ -88,6 +97,14 @@
 - (NSSet *)droppables
 {
     return [NSSet setWithSet:self.mutableDroppables];
+}
+
+- (void)setDelegate:(id<MNKDraggableDroppableDelegate>)delegate
+{
+    _delegate = delegate;
+    _delegateSelectorResponseFlags.draggableGestureDidBegin = [delegate respondsToSelector:@selector(draggableDroppable:draggableGestureDidBegin:draggable:)];
+    _delegateSelectorResponseFlags.draggableGestureDidEnd = [delegate respondsToSelector:@selector(draggableDroppable:draggableGestureDidEnd:draggable:)];
+    _delegateSelectorResponseFlags.draggableDroppedInDroppable = [delegate respondsToSelector:@selector(draggableDroppable:draggable:didDropIntoDroppable:gesture:)];
 }
 
 #pragma mark View Registration
@@ -159,7 +176,7 @@
 
 - (void)draggableDragGestureDidStart:(MNKDraggableGestureRecognizer *)sender
 {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(draggableDroppable:draggableGestureDidBegin:draggable:)]) {
+    if (_delegateSelectorResponseFlags.draggableGestureDidBegin) {
         [self.delegate draggableDroppable:self draggableGestureDidBegin:sender draggable:sender.view];
     }
     
@@ -174,12 +191,6 @@
 {
     UIView *draggable = sender.view;
     
-    [self.droppables enumerateObjectsUsingBlock:^(id droppable, BOOL *stop) {
-        if ([droppable respondsToSelector:@selector(droppableViewApplyPendingState)]) {
-            [(id<MNKDroppableView>)droppable droppableViewApplyPendingState];
-        }
-    }];
-    
     UIView *droppableUnderDraggable = [self droppableUnderDraggable:draggable];
     
     if (droppableUnderDraggable && [droppableUnderDraggable respondsToSelector:@selector(droppableViewApplyPendingDropState)]) {
@@ -190,30 +201,33 @@
 
 - (void)draggableDragGestureDidEnd:(MNKDraggableGestureRecognizer *)sender
 {
-    UIView *draggable = sender.view;
     
-    UIView *droppableUnderDraggable = [self droppableUnderDraggable:draggable];
-    if (droppableUnderDraggable && self.delegate && [self.delegate respondsToSelector:@selector(draggableDroppable:draggable:didDropIntoDroppable:gesture:)]) {
-        [self.delegate draggableDroppable:self draggable:draggable didDropIntoDroppable:droppableUnderDraggable gesture:sender];
-    }
-    
-    if (self.snapsDraggablesBackToDragStartOnMiss) {
-        [self.dynamicAnimator addBehavior:[sender snapBackBehaviour]];
-    }
-    
-    if (self.delegate && [self.delegate respondsToSelector:@selector(draggableDroppable:draggableGestureDidEnd:draggable:)]) {
-        [self.delegate draggableDroppable:self draggableGestureDidEnd:sender draggable:sender.view];
-    }
-    
-    if (self.delegate && [self.delegate respondsToSelector:@selector(draggableDroppable:draggableGestureDidEnd:draggable:)]) {
-        [self.delegate draggableDroppable:self draggableGestureDidEnd:sender draggable:sender.view];
-    }
-    
-    [self.droppables enumerateObjectsUsingBlock:^(id droppable, BOOL *stop) {
-        if ([droppable respondsToSelector:@selector(droppableViewApplyRegularState)]) {
-            [(id<MNKDroppableView>)droppable droppableViewApplyRegularState];
+    UIView *droppableUnderDraggable = [self droppableUnderDraggable:sender.draggable];
+    if (droppableUnderDraggable != nil) {
+        
+        if (_delegateSelectorResponseFlags.draggableGestureDidEnd) {
+            [self.delegate draggableDroppable:self draggable:sender.draggable didDropIntoDroppable:droppableUnderDraggable gesture:sender];
         }
-    }];
+    
+        if (self.snapsDraggablesToDroppableSnapPointOnHit) {
+            [self snapDragabbleToDroppableSnapPoint:sender droppable:droppableUnderDraggable];
+        }
+        
+    }
+    
+    else {
+        
+        if (self.snapsDraggablesBackToDragStartOnMiss) {
+            [self snapDraggableToStart:sender];
+        }
+        
+    }
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(draggableDroppable:draggableGestureDidEnd:draggable:)]) {
+        [self.delegate draggableDroppable:self draggableGestureDidEnd:sender draggable:sender.view];
+    }
+    
+    [self applyRegularStateOnDroppables];
     
     [sender resetState];
 }
@@ -242,6 +256,38 @@
 - (BOOL)isDraggableOnADroppable:(UIView *)draggable
 {
     return ([self droppableUnderDraggable:draggable] != nil);
+}
+
+#pragma mark Draggable State Application
+
+- (void)applyPendingStateOnDroppables
+{
+    [self.droppables enumerateObjectsUsingBlock:^(id droppable, BOOL *stop) {
+        if ([droppable respondsToSelector:@selector(droppableViewApplyPendingState)]) {
+            [(id<MNKDroppableView>)droppable droppableViewApplyPendingState];
+        }
+    }];
+}
+
+- (void)applyRegularStateOnDroppables
+{
+    [self.droppables enumerateObjectsUsingBlock:^(id droppable, BOOL *stop) {
+        if ([droppable respondsToSelector:@selector(droppableViewApplyRegularState)]) {
+            [(id<MNKDroppableView>)droppable droppableViewApplyRegularState];
+        }
+    }];
+}
+
+#pragma mark Snaps
+
+- (void)snapDraggableToStart:(MNKDraggableGestureRecognizer *)gesture
+{
+    [self.dynamicAnimator addBehavior:[gesture snapBackBehaviour]];
+}
+
+- (void)snapDragabbleToDroppableSnapPoint:(MNKDraggableGestureRecognizer *)gesture droppable:(UIView *)droppable
+{
+    [self.dynamicAnimator addBehavior:[droppable mnk_dropSnapBehaviour:gesture.draggable]];    
 }
 
 #pragma mark UIDynamicAnimatorDelegate

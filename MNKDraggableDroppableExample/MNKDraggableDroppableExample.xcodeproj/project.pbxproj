@@ -13,6 +13,8 @@
 		99568803190A5BCB00A07A3D /* DemoCustomiseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 99568802190A5BCB00A07A3D /* DemoCustomiseViewController.m */; };
 		9983EFA619094C9600947FEA /* Draggable.m in Sources */ = {isa = PBXBuildFile; fileRef = 9983EFA519094C9600947FEA /* Draggable.m */; };
 		9983EFA919094CA200947FEA /* Droppable.m in Sources */ = {isa = PBXBuildFile; fileRef = 9983EFA819094CA200947FEA /* Droppable.m */; };
+		999E48AF190EE8F7008624C3 /* UIView+MNKDraggable.m in Sources */ = {isa = PBXBuildFile; fileRef = 999E48AE190EE8F7008624C3 /* UIView+MNKDraggable.m */; };
+		999E48B2190EF639008624C3 /* UIView+MNKDroppable.m in Sources */ = {isa = PBXBuildFile; fileRef = 999E48B1190EF639008624C3 /* UIView+MNKDroppable.m */; };
 		99E572A81907B16F0087BEF0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99E572A71907B16F0087BEF0 /* Foundation.framework */; };
 		99E572AA1907B16F0087BEF0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99E572A91907B16F0087BEF0 /* CoreGraphics.framework */; };
 		99E572AC1907B16F0087BEF0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99E572AB1907B16F0087BEF0 /* UIKit.framework */; };
@@ -52,6 +54,10 @@
 		9983EFA519094C9600947FEA /* Draggable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Draggable.m; sourceTree = "<group>"; };
 		9983EFA719094CA200947FEA /* Droppable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Droppable.h; sourceTree = "<group>"; };
 		9983EFA819094CA200947FEA /* Droppable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Droppable.m; sourceTree = "<group>"; };
+		999E48AD190EE8F7008624C3 /* UIView+MNKDraggable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MNKDraggable.h"; sourceTree = "<group>"; };
+		999E48AE190EE8F7008624C3 /* UIView+MNKDraggable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MNKDraggable.m"; sourceTree = "<group>"; };
+		999E48B0190EF639008624C3 /* UIView+MNKDroppable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MNKDroppable.h"; sourceTree = "<group>"; };
+		999E48B1190EF639008624C3 /* UIView+MNKDroppable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MNKDroppable.m"; sourceTree = "<group>"; };
 		99E572A41907B16F0087BEF0 /* MNKDraggableDroppableExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MNKDraggableDroppableExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99E572A71907B16F0087BEF0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		99E572A91907B16F0087BEF0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -139,6 +145,17 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		999E48AC190EE860008624C3 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				999E48AD190EE8F7008624C3 /* UIView+MNKDraggable.h */,
+				999E48AE190EE8F7008624C3 /* UIView+MNKDraggable.m */,
+				999E48B0190EF639008624C3 /* UIView+MNKDroppable.h */,
+				999E48B1190EF639008624C3 /* UIView+MNKDroppable.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 		99E5729B1907B16F0087BEF0 = {
 			isa = PBXGroup;
 			children = (
@@ -210,6 +227,7 @@
 			children = (
 				99E572E7190879720087BEF0 /* MNKDraggableDroppable.h */,
 				99E572E8190879720087BEF0 /* MNKDraggableDroppable.m */,
+				999E48AC190EE860008624C3 /* Categories */,
 				994AD733190BDA6C00516432 /* Protocols */,
 				994AD735190BDA8400516432 /* Gestures */,
 			);
@@ -356,6 +374,8 @@
 				99568803190A5BCB00A07A3D /* DemoCustomiseViewController.m in Sources */,
 				99E572B81907B16F0087BEF0 /* AppDelegate.m in Sources */,
 				99E572B41907B16F0087BEF0 /* main.m in Sources */,
+				999E48B2190EF639008624C3 /* UIView+MNKDroppable.m in Sources */,
+				999E48AF190EE8F7008624C3 /* UIView+MNKDraggable.m in Sources */,
 				9983EFA919094CA200947FEA /* Droppable.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
