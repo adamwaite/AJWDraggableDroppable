@@ -29,6 +29,45 @@
     [self.dragDropController registerDroppableView:self.droppable];
 }
 
+#pragma mark MNKDraggableDroppableDelegate
+
+- (void)draggableDroppable:(MNKDraggableDroppable *)draggableDroppable draggableGestureDidBegin:(UIPanGestureRecognizer *)gestureRecognizer draggable:(UIView *)draggable
+{
+    NSDictionary *log = @{
+        @"MNKDraggableDroppable:": draggableDroppable,
+        @"Getsure:": gestureRecognizer,
+        @"Draggable": draggable
+    };
+    
+    NSLog(@"Draggable drag gesture started: %@", log);
+}
+
+- (void)draggableDroppable:(MNKDraggableDroppable *)draggableDroppable draggableGestureDidEnd:(UIPanGestureRecognizer *)gestureRecognizer draggable:(UIView *)draggable
+{
+    NSDictionary *log = @{
+        @"MNKDraggableDroppable:": draggableDroppable,
+        @"Getsure:": gestureRecognizer,
+        @"Draggable": draggable
+    };
+    
+    NSLog(@"Draggable drag gesture ended: %@", log);
+}
+
+- (void)draggableDroppable:(MNKDraggableDroppable *)draggableDroppable draggable:(UIView *)draggable didDropIntoDroppable:(UIView *)droppable gesture:(UIPanGestureRecognizer *)gestureRecognizer
+{
+    NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Draggable %@ was dropped into droppable: %@", nil), draggable, droppable];
+    [[[UIAlertView alloc] initWithTitle:nil message:message delegate:nil cancelButtonTitle:@"💣" otherButtonTitles:nil] show];
+    
+    NSDictionary *log = @{
+        @"MNKDraggableDroppable:": draggableDroppable,
+        @"Getsure:": gestureRecognizer,
+        @"Draggable": draggable,
+        @"Droppable": droppable
+    };
+    
+    NSLog(@"Draggable was dropped into droppable: %@", log);   
+}
+
 #pragma mark Actions
 
 - (IBAction)rightBarButtonItemAction:(id)sender

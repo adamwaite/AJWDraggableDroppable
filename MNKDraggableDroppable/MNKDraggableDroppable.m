@@ -1,5 +1,5 @@
 //
-//  MNKDraggableDroppableController.m
+//  MNKDraggableDroppable.m
 //  MNKDraggableDroppableExample
 //
 //  Created by Adam Waite on 23/04/2014.
@@ -173,40 +173,36 @@
 - (void)draggableDragGestureDidContinue:(MNKDraggableGestureRecognizer *)sender
 {
     UIView *draggable = sender.view;
-    __block UIView *hoveringDropZone;
     
     [self.droppables enumerateObjectsUsingBlock:^(id droppable, BOOL *stop) {
-        
-        CGPoint draggableCenterRelativeToWindow = [draggable.superview convertPoint:draggable.center toView:droppable];
-        
-        if (CGRectContainsPoint([(UIView *)droppable bounds], draggableCenterRelativeToWindow)) {
-            
-            if ([droppable respondsToSelector:@selector(droppableViewApplyPendingDropState)]) {
-                [droppable droppableViewApplyPendingDropState];
-            }
-            
-            hoveringDropZone = droppable;
-            *stop = YES;
-            
+        if ([droppable respondsToSelector:@selector(droppableViewApplyPendingState)]) {
+            [(id<MNKDroppableView>)droppable droppableViewApplyPendingState];
         }
-        
-        else {
-            
-            [self.droppables enumerateObjectsUsingBlock:^(id droppable, BOOL *stop) {
-                if ([droppable respondsToSelector:@selector(droppableViewApplyPendingState)]) {
-                    [(id<MNKDroppableView>)droppable droppableViewApplyPendingState];
-                }
-            }];
-            
-        }
-        
     }];
+    
+    UIView *droppableUnderDraggable = [self droppableUnderDraggable:draggable];
+    
+    if (droppableUnderDraggable && [droppableUnderDraggable respondsToSelector:@selector(droppableViewApplyPendingDropState)]) {
+        [(id<MNKDroppableView>)droppableUnderDraggable droppableViewApplyPendingDropState];
+    }
+
 }
 
 - (void)draggableDragGestureDidEnd:(MNKDraggableGestureRecognizer *)sender
 {
+    UIView *draggable = sender.view;
+    
+    UIView *droppableUnderDraggable = [self droppableUnderDraggable:draggable];
+    if (droppableUnderDraggable && self.delegate && [self.delegate respondsToSelector:@selector(draggableDroppable:draggable:didDropIntoDroppable:gesture:)]) {
+        [self.delegate draggableDroppable:self draggable:draggable didDropIntoDroppable:droppableUnderDraggable gesture:sender];
+    }
+    
     if (self.snapsDraggablesBackToDragStartOnMiss) {
         [self.dynamicAnimator addBehavior:[sender snapBackBehaviour]];
+    }
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(draggableDroppable:draggableGestureDidEnd:draggable:)]) {
+        [self.delegate draggableDroppable:self draggableGestureDidEnd:sender draggable:sender.view];
     }
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(draggableDroppable:draggableGestureDidEnd:draggable:)]) {
@@ -222,12 +218,37 @@
     [sender resetState];
 }
 
+#pragma mark Calculations and Utilities
+
+- (UIView *)droppableUnderDraggable:(UIView *)draggable
+{
+    __block UIView *droppableUnderDraggable;
+    
+    [self.droppables enumerateObjectsUsingBlock:^(id droppable, BOOL *stop) {
+        CGPoint draggableCenterRelativeToWindow = [draggable.superview convertPoint:draggable.center toView:droppable];
+        if (CGRectContainsPoint([(UIView *)droppable bounds], draggableCenterRelativeToWindow)) {
+            if ([droppable respondsToSelector:@selector(droppableViewApplyPendingDropState)]) {
+                [droppable droppableViewApplyPendingDropState];
+            }
+            droppableUnderDraggable = droppable;
+            *stop = YES;
+        }
+    }];
+    
+    return droppableUnderDraggable;
+    
+}
+
+- (BOOL)isDraggableOnADroppable:(UIView *)draggable
+{
+    return ([self droppableUnderDraggable:draggable] != nil);
+}
+
 #pragma mark UIDynamicAnimatorDelegate
 
 - (void)dynamicAnimatorDidPause:(UIDynamicAnimator *)animator
 {
     [self.dynamicAnimator removeAllBehaviors];
 }
-
 
 @end

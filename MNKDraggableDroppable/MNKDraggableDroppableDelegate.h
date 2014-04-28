@@ -39,4 +39,14 @@
  */
 - (void)draggableDroppable:(MNKDraggableDroppable *)draggableDroppable draggableGestureDidEnd:(UIPanGestureRecognizer *)gestureRecognizer draggable:(UIView *)draggable;
 
+/**
+ *  Notifies the delegate that a draggable was dropped into a droppable
+ *
+ *  @param draggableDroppable: delegating instance
+ *  @param draggable:          the view that was dragged
+ *  @param droppable:          the view the draggable was dropped into
+ *  @param gestureRecognizer:  active gesture recogniser on the draggable
+ */
+- (void)draggableDroppable:(MNKDraggableDroppable *)draggableDroppable draggable:(UIView *)draggable didDropIntoDroppable:(UIView *)droppable gesture:(UIPanGestureRecognizer *)gestureRecognizer;
+
 @end
