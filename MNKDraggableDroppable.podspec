@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "MNKDraggableDroppable"
-  s.version      = "0.0.3"
+  s.version      = "0.0.0.1"
   s.summary      = "MNKDraggableDroppable provides a drag and drop API on iOS."
 
   s.description  = <<-DESC
@@ -20,7 +20,7 @@ DESC
   s.platform     = :ios
   s.platform     = :ios, '7.0'
 
-  s.source       = { :git => "https://github.com/adamwaite/MNKDraggableDroppable.git", tag: "unreleased" }
+  s.source       = { :git => "https://github.com/adamwaite/MNKDraggableDroppable.git", tag: "v0.0.0.1-dev" }
   s.source_files  = 'MNKDraggableDroppable', 'MNKDraggableDroppable/**/*.{h,m}'
   s.public_header_files = 'MNKDraggableDroppable/MNKDraggableDroppable.h'
   s.requires_arc = true
