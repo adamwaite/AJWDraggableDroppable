@@ -12,7 +12,7 @@ Install with [CocoaPods](http://cocoapods.org):
 
 `pod 'MNKDraggableDroppable', :head`
 
-*I'm still writing this component so an official pod hasn't yet been released. For now you can install using the `:head` symbol.*
+*I'm still writing this component so a complete pod hasn't yet been released since the code is subject to change. For now you can install using the `:head` symbol should you want to.*
 
 ## Usage
 
