@@ -135,7 +135,9 @@ By subclassing UIView and adopting the `MNKDraggableView` protocol it's possible
 @end
 ```
 
-- Customise the draggable's appearance during a drag state:
+#### Drag State
+
+Customise the draggable's appearance during a drag state:
 
 ```
 - (void)draggableViewApplyAppearanceStateDragging
@@ -144,7 +146,9 @@ By subclassing UIView and adopting the `MNKDraggableView` protocol it's possible
 }
 ```
 
-- Customise the draggable's appearance during a drag state while the center is hovering over a droppable bounds:
+#### Hover State
+
+Customise the draggable's appearance during a drag state while the center is hovering over a droppable bounds:
 
 ```
 - (void)draggableViewApplyAppearanceStateHovering
@@ -153,7 +157,9 @@ By subclassing UIView and adopting the `MNKDraggableView` protocol it's possible
 }
 ```
 
-- Resetting the draggable's appearance back to a regular state on gesture completion:
+#### Resetting State
+
+Resetting the draggable's appearance back to a regular state on gesture completion:
 
 ```
 - (void)draggableViewApplyAppearanceStateRegular
@@ -171,7 +177,9 @@ Similarly, a droppable's appearance can be customised throughout the phases of a
 @end
 ```
 
-- Customise the droppable's appearance when a draggable is in motion but not over the droppable bounds:
+#### Pending State
+
+Customise the droppable's appearance when a draggable is in motion but not over the droppable bounds:
 
 ```
 - (void)droppableViewApplyAppearanceStatePending
@@ -180,7 +188,9 @@ Similarly, a droppable's appearance can be customised throughout the phases of a
 }
 ```
 
-- Customise the droppable's appearance when a draggable's center is hovering above it's bounds:
+#### Pending Drop State
+
+Customise the droppable's appearance when a draggable's center is hovering above it's bounds:
 
 ```
 - (void)droppableViewApplyAppearanceStatePendingDrop
@@ -189,16 +199,58 @@ Similarly, a droppable's appearance can be customised throughout the phases of a
 }
 ```
 
-- Resetting the droppable's appearance back to a regular state on gesture completion:
+#### Resetting State
 
+Resetting the droppable's appearance back to a regular state on gesture completion:
+
+```
 - (void)droppableViewApplyAppearanceStateRegular
 {
     self.backgroundColor = [self cyanColor];
 }
+```
 
-### Animating a Draggable on Interaction Completion
+### Animating Draggables on Interaction Completion
 
-TODO
+The [UISnapBehaviour](https://developer.apple.com/library/ios/documentation/uikit/reference/UISnapBehavior_Class/Reference/Reference.html) class in UIKitDynamics has been used throughout MNKDraggableDroppable to animate draggables to a defined location on gesture completion (when the user lets go of the draggable).
+
+#### Snap To Start on Miss
+
+To snap draggables back to their starting location on miss (defaults to `NO`):
+
+```
+self.dragDropController.snapsDraggablesBackToDragStartOnMiss = YES;
+```
+
+#### Snap To Droppable Point on Hit
+
+To snap draggables to a point inside a droppable on hit (defaults to `YES`):
+
+```
+self.dragDropController.snapsDraggablesToDroppableSnapPointOnHit = YES;
+```
+
+The snap point defaults to the droppable's center but can be set by implementing:
+`droppableViewSnapPoint` defined in `<MNKDroppableView>` in your droppable view class:
+
+```
+- (CGPoint)droppableViewSnapPoint
+{
+    return CGPointMake(5.0f, 5.0f);
+}
+```
+
+## Examples
+
+An Xcode project is included with this repository to demonstrate the features of this component and to provide an indication of how the API is meant to be used.
+
+## Roadmap
+
+The library is still in early stages of development. New functionality will be added as requirements are encountered.
+
+## Contributing
+
+Contribution welcome. Please keep the README up to date.
 
 ## Contact
 

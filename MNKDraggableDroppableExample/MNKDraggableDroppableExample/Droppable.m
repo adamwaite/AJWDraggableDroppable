@@ -42,6 +42,11 @@
     self.backgroundColor = [self pendingDropColor];
 }
 
+- (CGPoint)droppableViewSnapPoint
+{
+    return CGPointMake(5.0f, 5.0f);
+}
+
 #pragma mark Colors
 
 - (UIColor *)standardColor
