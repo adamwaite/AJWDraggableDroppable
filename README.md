@@ -103,7 +103,7 @@ Similarly:
 
 Respond to drag and drop events by adopting the `MNKDraggableDroppableDelegate` protocol and setting the `MNKDraggableDroppable` delegate to the conforming class.
 
-- Respond to a draggable drag start:
+Respond to a draggable drag start:
 
 ```
 - (void)draggableDroppable:(MNKDraggableDroppable *)draggableDroppable draggableGestureDidBegin:(UIPanGestureRecognizer *)gestureRecognizer draggable:(UIView *)draggable
@@ -112,7 +112,7 @@ Respond to drag and drop events by adopting the `MNKDraggableDroppableDelegate` 
 }
 ```
 
-- Respond to a draggable drag end (and a drop into a droppable):
+Respond to a draggable drag end (and a drop into a droppable):
 
 ```
 - (void)draggableDroppable:(MNKDraggableDroppable *)draggableDroppable draggableGestureDidEnd:(UIPanGestureRecognizer *)gestureRecognizer draggable:(UIView *)draggable droppable:(UIView *)droppable
