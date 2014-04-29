@@ -15,7 +15,7 @@
 {
     CGPoint snapPoint = self.center;
     
-    if ([self respondsToSelector:@selector(droppableSnapPoint)]) {
+    if ([self respondsToSelector:@selector(droppableViewSnapPoint)]) {
         snapPoint = [(id<MNKDroppableView>)self droppableViewSnapPoint];
     }
     
