@@ -135,7 +135,7 @@
         return nil;
     }
     
-    MNKDraggableGestureRecognizer *drag = [[MNKDraggableGestureRecognizer alloc] initWithTarget:self action:@selector(draggableDragged:)];
+    MNKDraggableGestureRecognizer *drag = [[MNKDraggableGestureRecognizer alloc] initWithTarget:self action:@selector(draggableDragged:) referenceView:self.referenceView];
     [view addGestureRecognizer:drag];
     [self.mutableDraggables addObject:view];
     

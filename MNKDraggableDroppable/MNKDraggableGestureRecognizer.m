@@ -8,17 +8,15 @@
 
 #import "MNKDraggableGestureRecognizer.h"
 
-//    CGRect dragBounds = ([self.currentDraggable respondsToSelector:@selector(draggableViewDragBounds)]) ? [(id<MNKDraggableView>)self.currentDraggable draggableViewDragBounds] : CGRectInfinite;
-//
-
 @implementation MNKDraggableGestureRecognizer
 
 #pragma mark Init
 
-- (id)initWithTarget:(id)target action:(SEL)action
+- (id)initWithTarget:(id)target action:(SEL)action referenceView:(UIView *)referenceView
 {
     self = [super initWithTarget:target action:action];
     if (self) {
+        _referenceView = referenceView;
         self.maximumNumberOfTouches = 1;
     }
     return self;
@@ -31,6 +29,7 @@
     UITouch *touch = [[touches allObjects] firstObject];
     self.dragTouchStartPoint = [touch locationInView:nil];
     self.viewDragStartCenter = self.view.center;
+    self.viewDragStartCenterInReference = [self.view convertPoint:self.view.center toView:self.referenceView];
     [super touchesBegan:touches withEvent:event];
 }
 
@@ -64,13 +63,14 @@
 {
     self.dragTouchStartPoint = CGPointZero;
     self.viewDragStartCenter = CGPointZero;
+    self.viewDragStartCenterInReference = CGPointZero;
 }
 
-#pragma mark Snap Behaviour
+#pragma mark Snaps
 
 - (UISnapBehavior *)snapBackBehaviour
 {
-    UISnapBehavior *snapBehaviour = [[UISnapBehavior alloc] initWithItem:self.view snapToPoint:self.viewDragStartCenter];
+    UISnapBehavior *snapBehaviour = [[UISnapBehavior alloc] initWithItem:self.view snapToPoint:self.viewDragStartCenterInReference];
     snapBehaviour.damping = 0.65;
     return snapBehaviour;
 }
