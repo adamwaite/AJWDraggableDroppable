@@ -99,7 +99,7 @@ Similarly:
 [self.dragDropController deregisterDroppableView:view];
 ```
 
-### Responding to Drag and Drop Events (`<MNKDraggableDroppableDelegate>`)
+### Responding to Drag and Drop Events
 
 Respond to drag and drop events by adopting the `MNKDraggableDroppableDelegate` protocol and setting the `MNKDraggableDroppable` delegate to the conforming class.
 
@@ -126,13 +126,75 @@ Respond to drag and drop events by adopting the `MNKDraggableDroppableDelegate` 
 }
 ```
 
-### Customising a Draggable UI During Interaction (`<MNKDraggableView>`)
+### Customising a Draggable's Appearance During User Interaction
 
-TODO
+By subclassing UIView and adopting the `MNKDraggableView` protocol it's possible to customise the appearance of a draggable throughout the phases of a drag gesture.
 
-### Customising a Droppable UI During Interaction (`<MNKDroppableView>`)
+```
+@interface DraggableView <MNKDraggableView>
+@end
+```
 
-TODO
+- Customise the draggable's appearance during a drag state:
+
+```
+- (void)draggableViewApplyAppearanceStateDragging
+{
+    self.backgroundColor = [UIColor orangeColor];
+}
+```
+
+- Customise the draggable's appearance during a drag state while the center is hovering over a droppable bounds:
+
+```
+- (void)draggableViewApplyAppearanceStateHovering
+{
+    self.backgroundColor = [UIColor redColor];
+}
+```
+
+- Resetting the draggable's appearance back to a regular state on gesture completion:
+
+```
+- (void)draggableViewApplyAppearanceStateRegular
+{
+    self.backgroundColor = [UIColor yellowColor];
+}
+```
+
+### Customising a Droppable's Appearance During User Interaction
+
+Similarly, a droppable's appearance can be customised throughout the phases of a gesture by adopting the `MNKDroppableView` protocol.
+
+```
+@interface DroppableView <MNKDroppableView>
+@end
+```
+
+- Customise the droppable's appearance when a draggable is in motion but not over the droppable bounds:
+
+```
+- (void)droppableViewApplyAppearanceStatePending
+{
+    self.backgroundColor = [self blueColor];
+}
+```
+
+- Customise the droppable's appearance when a draggable's center is hovering above it's bounds:
+
+```
+- (void)droppableViewApplyAppearanceStatePendingDrop
+{
+    self.backgroundColor = [self purpleColor];
+}
+```
+
+- Resetting the droppable's appearance back to a regular state on gesture completion:
+
+- (void)droppableViewApplyAppearanceStateRegular
+{
+    self.backgroundColor = [self cyanColor];
+}
 
 ### Animating a Draggable on Interaction Completion
 

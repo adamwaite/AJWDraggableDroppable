@@ -27,17 +27,17 @@
 
 #pragma mark MNKDroppableView
 
-- (void)droppableViewApplyRegularState
+- (void)droppableViewApplyAppearanceStateRegular
 {
     self.backgroundColor = [self standardColor];
 }
 
-- (void)droppableViewApplyPendingState
+- (void)droppableViewApplyAppearanceStatePending
 {
     self.backgroundColor = [self pendingColor];
 }
 
-- (void)droppableViewApplyPendingDropState
+- (void)droppableViewApplyAppearanceStatePendingDrop
 {
     self.backgroundColor = [self pendingDropColor];
 }

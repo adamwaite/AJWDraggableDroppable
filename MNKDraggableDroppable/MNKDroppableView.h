@@ -43,21 +43,21 @@
 /**
  *  Applies a resting state for the view once a drag gesture is no longer in motion.
  */
-- (void)droppableViewApplyRegularState;
+- (void)droppableViewApplyAppearanceStateRegular;
 
 /**
  *  Applies a pending state for the view once a drag gesture is in motion but no draggable has entered the droppable bounds.
  */
-- (void)droppableViewApplyPendingState;
+- (void)droppableViewApplyAppearanceStatePending;
 
 /**
  *  Applies a state indicating that ending the current drag gesture will drop a draggable into the droppable bounds.
  */
-- (void)droppableViewApplyPendingDropState;
+- (void)droppableViewApplyAppearanceStatePendingDrop;
 
 /**
  *  The snap to point should a draggable be dropped in the adopting view's bounds.
  */
-- (CGPoint)droppableSnapPoint;
+- (CGPoint)droppableViewSnapPoint;
 
 @end

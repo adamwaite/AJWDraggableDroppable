@@ -27,10 +27,10 @@
  
  */
 
-
 #import "MNKDraggableDroppable.h"
 #import "MNKDraggableGestureRecognizer.h"
-#import "UIView+MNKDroppable.h"
+#import "UIView+MNKDraggablePrivate.h"
+#import "UIView+MNKDroppablePrivate.h"
 
 @interface MNKDraggableDroppable () <UIDynamicAnimatorDelegate>
 
@@ -200,28 +200,29 @@
         [self.delegate draggableDroppable:self draggableGestureDidBegin:sender draggable:sender.view];
     }
     
-    [self.droppables enumerateObjectsUsingBlock:^(id droppable, BOOL *stop) {
-        if ([droppable respondsToSelector:@selector(droppableViewApplyPendingState)]) {
-            [(id<MNKDroppableView>)droppable droppableViewApplyPendingState];
-        }
-    }];
+    [self applyAppearanceState:MNKDraggableStateDragging toDraggable:sender.draggable];
+    [self applyAppearanceStateToAllRegisteredDroppables:MNKDroppableStatePending];
+
 }
 
 - (void)draggableDragGestureDidContinue:(MNKDraggableGestureRecognizer *)sender
 {
-    UIView *draggable = sender.view;
+    [self applyAppearanceStateToAllRegisteredDroppables:MNKDroppableStatePending];
     
-    UIView *droppableUnderDraggable = [self droppableUnderDraggable:draggable];
+    UIView *droppableUnderDraggable = [self droppableUnderDraggable:sender.draggable];
     
-    if (droppableUnderDraggable && [droppableUnderDraggable respondsToSelector:@selector(droppableViewApplyPendingDropState)]) {
-        [(id<MNKDroppableView>)droppableUnderDraggable droppableViewApplyPendingDropState];
+    if (droppableUnderDraggable) {
+        [self applyAppearanceState:MNKDraggableStateHovering toDraggable:sender.draggable];
+        [self applyAppearanceState:MNKDroppableStatePendingDrop toDroppable:droppableUnderDraggable];
     }
-
+    
+    else {
+        [self applyAppearanceState:MNKDraggableStateDragging toDraggable:sender.draggable];
+    }
 }
 
 - (void)draggableDragGestureDidEnd:(MNKDraggableGestureRecognizer *)sender
 {
-    
     UIView *droppableUnderDraggable = [self droppableUnderDraggable:sender.draggable];
     
     if (_delegateSelectorResponseFlags.draggableGestureDidEnd) {
@@ -233,13 +234,16 @@
             [self snapDragabbleToDroppableSnapPoint:sender droppable:droppableUnderDraggable];
         }
     }
+    
     else {
         if (self.snapsDraggablesBackToDragStartOnMiss) {
             [self snapDraggableToStart:sender];
         }
     }
     
-    [self applyRegularStateOnDroppables];
+    [self applyAppearanceStateToAllRegisteredDroppables:MNKDroppableStateRegular];
+
+    [self applyAppearanceState:MNKDraggableStateRegular toDraggable:sender.draggable];
     
     [sender resetState];
 }
@@ -253,9 +257,6 @@
     [self.droppables enumerateObjectsUsingBlock:^(id droppable, BOOL *stop) {
         CGPoint draggableCenterRelativeToWindow = [draggable.superview convertPoint:draggable.center toView:droppable];
         if (CGRectContainsPoint([(UIView *)droppable bounds], draggableCenterRelativeToWindow)) {
-            if ([droppable respondsToSelector:@selector(droppableViewApplyPendingDropState)]) {
-                [droppable droppableViewApplyPendingDropState];
-            }
             droppableUnderDraggable = droppable;
             *stop = YES;
         }
@@ -270,23 +271,75 @@
     return ([self droppableUnderDraggable:draggable] != nil);
 }
 
-#pragma mark Draggable State Application
+#pragma mark Appearance State Application
 
-- (void)applyPendingStateOnDroppables
+- (void)applyAppearanceState:(MNKDraggableState)state toDraggable:(UIView *)draggable
 {
-    [self.droppables enumerateObjectsUsingBlock:^(id droppable, BOOL *stop) {
-        if ([droppable respondsToSelector:@selector(droppableViewApplyPendingState)]) {
-            [(id<MNKDroppableView>)droppable droppableViewApplyPendingState];
+    switch (state) {
+        case MNKDraggableStateRegular: {
+            if ([draggable respondsToSelector:@selector(draggableViewApplyAppearanceStateRegular)]) {
+                [(id<MNKDraggableView>)draggable draggableViewApplyAppearanceStateRegular];
+            }
+            break;
         }
-    }];
+        case MNKDraggableStateDragging: {
+            if ([draggable respondsToSelector:@selector(draggableViewApplyAppearanceStateDragging)]) {
+                [(id<MNKDraggableView>)draggable draggableViewApplyAppearanceStateDragging];
+            }
+            break;
+        }
+        case MNKDraggableStateHovering: {
+            if ([draggable respondsToSelector:@selector(draggableViewApplyAppearanceStateHovering)]) {
+                [(id<MNKDraggableView>)draggable draggableViewApplyAppearanceStateHovering];
+            }
+            break;
+        }
+    }
 }
 
-- (void)applyRegularStateOnDroppables
+- (void)applyAppearanceState:(MNKDroppableState)state toDroppable:(UIView *)droppable
+{
+    switch (state) {
+        case MNKDroppableStateRegular: {
+            if ([droppable respondsToSelector:@selector(droppableViewApplyAppearanceStateRegular)]) {
+                [(id<MNKDroppableView>)droppable droppableViewApplyAppearanceStateRegular];
+            }
+            break;
+        }
+        case MNKDroppableStatePending: {
+            if ([droppable respondsToSelector:@selector(droppableViewApplyAppearanceStatePending)]) {
+                [(id<MNKDroppableView>)droppable droppableViewApplyAppearanceStatePending];
+            }
+            break;
+        }
+        case MNKDroppableStatePendingDrop: {
+            if ([droppable respondsToSelector:@selector(droppableViewApplyAppearanceStatePendingDrop)]) {
+                [(id<MNKDroppableView>)droppable droppableViewApplyAppearanceStatePendingDrop];
+            }
+            break;
+        }
+    }
+}
+
+- (void)applyAppearanceStateToAllRegisteredDroppables:(MNKDroppableState)state
 {
     [self.droppables enumerateObjectsUsingBlock:^(id droppable, BOOL *stop) {
-        if ([droppable respondsToSelector:@selector(droppableViewApplyRegularState)]) {
-            [(id<MNKDroppableView>)droppable droppableViewApplyRegularState];
+        
+        switch (state) {
+            case MNKDroppableStateRegular: {
+                [self applyAppearanceState:MNKDroppableStateRegular toDroppable:droppable];
+                break;
+            }
+            case MNKDroppableStatePending: {
+                [self applyAppearanceState:MNKDroppableStatePending toDroppable:droppable];
+                break;
+            }
+            case MNKDroppableStatePendingDrop: {
+                [self applyAppearanceState:MNKDroppableStatePendingDrop toDroppable:droppable];
+                break;
+            }
         }
+        
     }];
 }
 

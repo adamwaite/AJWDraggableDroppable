@@ -28,19 +28,7 @@
  */
 
 #import "UIView+MNKDroppable.h"
-#import "MNKDroppableView.h"
 
 @implementation UIView (MNKDroppable)
-
-- (UISnapBehavior *)mnk_dropSnapBehaviour:(UIView *)draggable
-{
-    CGPoint snapPoint = self.center;
-    
-    if ([self respondsToSelector:@selector(droppableSnapPoint)]) {
-        snapPoint = [(id<MNKDroppableView>)self droppableSnapPoint];
-    }
-    
-    return [[UISnapBehavior alloc] initWithItem:draggable snapToPoint:snapPoint];
-}
 
 @end

@@ -27,11 +27,8 @@
  
  */
 
-
 #import <UIKit/UIKit.h>
 
 @interface UIView (MNKDroppable)
-
-- (UISnapBehavior *)mnk_dropSnapBehaviour:(UIView *)draggable;
 
 @end

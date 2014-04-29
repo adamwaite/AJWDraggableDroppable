@@ -31,7 +31,8 @@
 #import "MNKDraggableView.h"
 #import "MNKDroppableView.h"
 #import "MNKDraggableDroppableDelegate.h"
-
+#import "UIView+MNKDraggable.h"
+#import "UIView+MNKDroppable.h"
 
 #pragma mark Constants and Type Defines
 
@@ -53,6 +54,41 @@ typedef NS_ENUM(NSUInteger, MNKDraggableEvent) {
     MNKDraggableEventDragEnded
 };
 
+/**
+ *  Draggable States
+ */
+typedef NS_ENUM(NSUInteger, MNKDraggableState) {
+    /**
+     *  Resting
+     */
+    MNKDraggableStateRegular,
+    /**
+     *  Gesture in motion
+     */
+    MNKDraggableStateDragging,
+    /**
+     *  Gesture in motion, centre hovering over droppable bounds
+     */
+    MNKDraggableStateHovering
+};
+
+/**
+ *  Droppable States
+ */
+typedef NS_ENUM(NSUInteger, MNKDroppableState) {
+    /**
+     *  Resting
+     */
+    MNKDroppableStateRegular,
+    /**
+     *  Pending a draggable
+     */
+    MNKDroppableStatePending,
+    /**
+     *  Draggable hovering over bounds
+     */
+    MNKDroppableStatePendingDrop
+};
 
 #pragma mark MNKDraggableDroppable
 
@@ -121,7 +157,6 @@ typedef NS_ENUM(NSUInteger, MNKDraggableEvent) {
 - (instancetype)initWithReferenceView:(UIView *)view;
 
 @end
-
 
 #pragma mark MNKDraggableDroppable+ViewRegistration
 

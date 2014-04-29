@@ -41,6 +41,21 @@
 @optional
 
 /**
+ *  Applies a resting state for the view once a drag gesture is no longer in motion.
+ */
+- (void)draggableViewApplyAppearanceStateRegular;
+
+/**
+ *  Applies a dragging state for the view once a drag gesture is in motion but hasn't yet entered a droppable bounds.
+ */
+- (void)draggableViewApplyAppearanceStateDragging;
+
+/**
+ *  Applies a state indicating that ending the current drag gesture will drop the view into a droppable bounds.
+ */
+- (void)draggableViewApplyAppearanceStateHovering;
+
+/**
  *  The bounds relative to the screen in which the view's center may not exit during drag gesture. Defaults to infinite surface area.
  *
  *  @return CGRect describing the bounds limit (perhaps a superview bounds?)
