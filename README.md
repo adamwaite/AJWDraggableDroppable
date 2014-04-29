@@ -2,7 +2,7 @@
 
 MNKDraggableDroppable provides a rich and customisable drag and drop API for iOS apps.
 
-**Note** - MNKDraggableDroppable is still in early stages of development.
+**Note** - MNKDraggableDroppable is still in early stages of development - coming soon.
 
 A draggable view can be moved with user interaction. A droppable view provides an area in which a draggable view can be dropped. MNKDraggableDroppable allows you to identify a view as a draggable or droppable, and provides a mechanism for responding to events involving the two.
 
@@ -18,11 +18,7 @@ The library was created for the make-offer interaction in maneki for iOS.
 
 ## Installation
 
-Install with [CocoaPods](http://cocoapods.org):
-
-`pod 'MNKDraggableDroppable', :head`
-
-*I'm still writing this component so a complete pod hasn't yet been released since the code is subject to change. For now you can install using the `:head` symbol should you want to.*
+*I'm still writing this component so a CocoaPod hasn't yet been released due to the code being subject to change.*
 
 ## Usage
 
