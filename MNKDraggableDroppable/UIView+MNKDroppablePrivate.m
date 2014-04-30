@@ -11,12 +11,12 @@
 
 @implementation UIView (MNKDroppablePrivate)
 
-- (UISnapBehavior *)mnk_dropSnapBehaviour:(UIView *)draggable
+- (UISnapBehavior *)mnk_dropSnapBehaviour:(UIView *)draggable referenceView:(UIView *)referenceView
 {
-    CGPoint snapPoint = self.center;
+    CGPoint snapPoint = [self convertPoint:self.center toView:referenceView];
     
     if ([self respondsToSelector:@selector(droppableViewSnapPoint)]) {
-        snapPoint = [(id<MNKDroppableView>)self droppableViewSnapPoint];
+        snapPoint = [self convertPoint:[(id<MNKDroppableView>)self droppableViewSnapPoint] toView:referenceView];
     }
     
     return [[UISnapBehavior alloc] initWithItem:draggable snapToPoint:snapPoint];

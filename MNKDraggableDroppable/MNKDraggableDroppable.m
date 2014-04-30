@@ -352,7 +352,7 @@
 
 - (void)snapDragabbleToDroppableSnapPoint:(MNKDraggableGestureRecognizer *)gesture droppable:(UIView *)droppable
 {
-    [self.dynamicAnimator addBehavior:[droppable mnk_dropSnapBehaviour:gesture.draggable]];    
+    [self.dynamicAnimator addBehavior:[droppable mnk_dropSnapBehaviour:gesture.draggable referenceView:self.referenceView]];
 }
 
 #pragma mark UIDynamicAnimatorDelegate

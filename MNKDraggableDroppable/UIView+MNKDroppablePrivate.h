@@ -10,6 +10,6 @@
 
 @interface UIView (MNKDroppablePrivate)
 
-- (UISnapBehavior *)mnk_dropSnapBehaviour:(UIView *)draggable;
+- (UISnapBehavior *)mnk_dropSnapBehaviour:(UIView *)draggable referenceView:(UIView *)referenceView;
 
 @end
