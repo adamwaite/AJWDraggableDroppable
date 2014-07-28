@@ -14,7 +14,7 @@ Features:
 - Animate a draggable view back to it's starting location, or a defined drop location with UIKitDynamics snap behaviours.
 - Manage separate collections of draggable and droppable views.
 
-The library was created for the make-offer interaction in maneki for iOS.
+![demo-vid](resources/demo.mp4.gif)
 
 ## Installation
 
