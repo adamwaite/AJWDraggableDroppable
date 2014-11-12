@@ -61,7 +61,7 @@
 {
     self = [super init];
     if (self) {
-        [self configure];
+        NSAssert(NO, @"Use initWithReferenceView");
     }
     return self;
 }
@@ -70,7 +70,7 @@
 {
     self = [super init];
     if (self) {
-        _referenceView = view;
+        self.referenceView = view;
         [self configure];
     }
     return self;
@@ -231,13 +231,13 @@
     
     if (droppableUnderDraggable != nil) {
         if (self.snapsDraggablesToDroppableSnapPointOnHit) {
-            [self snapDragabbleToDroppableSnapPoint:sender droppable:droppableUnderDraggable];
+            [self snapDragabbleToDroppableSnapPointFromGesture:sender droppable:droppableUnderDraggable];
         }
     }
     
     else {
         if (self.snapsDraggablesBackToDragStartOnMiss) {
-            [self snapDraggableToStart:sender];
+            [self snapDraggableToStartingLocationFromGesture:sender];
         }
     }
     
@@ -345,14 +345,14 @@
 
 #pragma mark Snaps
 
-- (void)snapDraggableToStart:(MNKDraggableGestureRecognizer *)gesture
+- (void)snapDraggableToStartingLocationFromGesture:(UIPanGestureRecognizer *)gesture
 {
-    [self.dynamicAnimator addBehavior:[gesture snapBackBehaviour]];
+    [self.dynamicAnimator addBehavior:[(MNKDraggableGestureRecognizer *)gesture snapBackBehaviour]];
 }
 
-- (void)snapDragabbleToDroppableSnapPoint:(MNKDraggableGestureRecognizer *)gesture droppable:(UIView *)droppable
+- (void)snapDragabbleToDroppableSnapPointFromGesture:(UIPanGestureRecognizer *)gesture droppable:(UIView *)droppable
 {
-    [self.dynamicAnimator addBehavior:[droppable mnk_dropSnapBehaviour:gesture.draggable referenceView:self.referenceView]];
+    [self.dynamicAnimator addBehavior:[droppable mnk_dropSnapBehaviour:[(MNKDraggableGestureRecognizer *)gesture draggable] referenceView:self.referenceView]];
 }
 
 #pragma mark UIDynamicAnimatorDelegate

@@ -156,6 +156,22 @@ typedef NS_ENUM(NSUInteger, MNKDroppableState) {
  */
 - (instancetype)initWithReferenceView:(UIView *)view;
 
+/**
+ *  Snaps the draggable back to it's initial location at the beginning of the pan gesture
+ *
+ *  @param gesture Gesture used to pan the draggable
+ */
+- (void)snapDraggableToStartingLocationFromGesture:(UIPanGestureRecognizer *)gesture;
+
+/**
+ *  Snaps the draggable back to the snapPointLocation defined in the <MNKDroppableView> view conforming droppable
+ *
+ *  @param gesture   Gesture used to pan the draggable
+ *  @param droppable Droppable to snap to
+ */
+- (void)snapDragabbleToDroppableSnapPointFromGesture:(UIPanGestureRecognizer *)gesture droppable:(UIView *)droppable;
+
+
 @end
 
 #pragma mark MNKDraggableDroppable+ViewRegistration
