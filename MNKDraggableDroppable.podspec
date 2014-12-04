@@ -17,7 +17,7 @@ DESC
   s.platform     = :ios
   s.platform     = :ios, '7.0'
 
-  s.source       = { :git => "https://github.com/adamwaite/MNKDraggableDroppable.git", tag: "v0.0.0.1-dev" }
+  s.source       = { :git => "https://github.com/adamwaite/MNKDraggableDroppable.git", tag: "v0.0.0.1" }
   s.source_files  = 'MNKDraggableDroppable', 'MNKDraggableDroppable/**/*.{h,m}'
   s.public_header_files = 'MNKDraggableDroppable/MNKDraggableDroppable.h'
   s.requires_arc = true
