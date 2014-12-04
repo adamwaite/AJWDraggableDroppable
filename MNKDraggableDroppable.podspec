@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
 
   s.name         = "MNKDraggableDroppable"
   s.version      = "0.0.0.1"
-  s.summary      = "MNKDraggableDroppable provides a rich and customisable drag and drop API for iOS apps."
+  s.summary      = "MNKDraggableDroppable provides a drag and drop API for iOS apps."
 
   s.description  = <<-DESC
 DESC

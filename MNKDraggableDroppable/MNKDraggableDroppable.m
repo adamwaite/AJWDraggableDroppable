@@ -245,7 +245,6 @@
 
     [self applyAppearanceState:MNKDraggableStateRegular toDraggable:sender.draggable];
     
-    [sender resetState];
 }
 
 #pragma mark Calculations and Utilities
