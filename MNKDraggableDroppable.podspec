@@ -19,7 +19,7 @@ DESC
 
   s.source       = { :git => "https://github.com/adamwaite/MNKDraggableDroppable.git", tag: "v0.0.0.1" }
   s.source_files  = 'MNKDraggableDroppable', 'MNKDraggableDroppable/**/*.{h,m}'
-  s.public_header_files = 'MNKDraggableDroppable/MNKDraggableDroppable.h'
+  s.public_header_files = 'MNKDraggableDroppable/MNKDraggableDroppable.h', 'MNKDraggableDroppable/MNKDraggableView.h', 'MNKDraggableDroppable/MNKDroppableView.h', 'MNKDraggableDroppable/MNKDraggableDroppableDelegate.h', 'MNKDraggableDroppable/UIView+MNKDraggable.h', 'MNKDraggableDroppable/UIView+MNKDroppable.h'
   s.requires_arc = true
 
 end
