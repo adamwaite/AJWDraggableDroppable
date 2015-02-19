@@ -1,25 +1,29 @@
 Pod::Spec.new do |s|
 
-  s.name         = "MNKDraggableDroppable"
-  s.version      = "0.0.0.1"
-  s.summary      = "MNKDraggableDroppable provides a drag and drop API for iOS apps."
+  s.name = 'AJWDraggableDroppable'
+  s.version = '0.0.0.2'
+  s.summary = 'AJWDraggableDroppable provides a drag and drop API for iOS apps.'
 
-  s.description  = <<-DESC
-DESC
+  s.description = <<-DESC
 
-  s.homepage     = "https://github.com/adamwaite/MNKDraggableDroppable"
+  DESC
 
-  s.license      = { :type => 'MIT', :file => 'LICENSE' }
+  s.homepage = 'https://github.com/adamwaite/AJWDraggableDroppable'
 
-  s.author             = { "Adam Waite" => "adam@adamjwaite.co.uk" }
-  s.social_media_url = "http://twitter.com/AdamWaite"
+  s.license = { :type => 'MIT', :file => 'LICENSE' }
 
-  s.platform     = :ios
-  s.platform     = :ios, '7.0'
+  s.author = { 'Adam Waite' => 'adam@adamjwaite.co.uk' }
 
-  s.source       = { :git => "https://github.com/adamwaite/MNKDraggableDroppable.git", tag: "v0.0.0.1" }
-  s.source_files  = 'MNKDraggableDroppable', 'MNKDraggableDroppable/**/*.{h,m}'
-  s.public_header_files = 'MNKDraggableDroppable/MNKDraggableDroppable.h', 'MNKDraggableDroppable/MNKDraggableView.h', 'MNKDraggableDroppable/MNKDroppableView.h', 'MNKDraggableDroppable/MNKDraggableDroppableDelegate.h', 'MNKDraggableDroppable/UIView+MNKDraggable.h', 'MNKDraggableDroppable/UIView+MNKDroppable.h'
+  s.social_media_url = 'http://twitter.com/AdamWaite'
+
+  s.platform = :ios, '7.0'
+
+  s.source = { :git => 'https://github.com/adamwaite/AJWDraggableDroppable.git', tag: 'v0.0.0.1' }
+
+  s.source_files = 'AJWDraggableDroppable', 'AJWDraggableDroppable/**/*.{h,m}'
+
+  s.public_header_files = 'AJWDraggableDroppable/AJWDraggableDroppable.h', 'AJWDraggableDroppable/AJWDraggableView.h', 'AJWDraggableDroppable/AJWDroppableView.h', 'AJWDraggableDroppable/AJWDraggableDroppableDelegate.h', 'AJWDraggableDroppable/UIView+AJWDraggable.h', 'AJWDraggableDroppable/UIView+AJWDroppable.h'
+
   s.requires_arc = true
 
 end
