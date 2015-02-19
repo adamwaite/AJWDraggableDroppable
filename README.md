@@ -1,6 +1,6 @@
 # AJWDraggableDroppable
 
-AJWDraggableDroppable provides a rich and customisable drag and drop API for iOS apps.
+AJWDraggableDroppable provides a rich drag and drop API for iOS apps.
 
 A draggable view can be moved with user interaction. A droppable view provides an area in which a draggable view can be dropped. AJWDraggableDroppable allows you to identify a view as a draggable or droppable, and provides a mechanism for responding to events involving the two.
 
