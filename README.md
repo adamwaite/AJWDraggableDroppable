@@ -2,6 +2,8 @@
 
 AJWDraggableDroppable provides a rich drag and drop API for iOS apps.
 
+> 💀 `AJWDraggableDroppable` is an Objective-C project and is longer maintained. I'd orginally built it for a side project that never got released (seen in the video).
+
 A draggable view can be moved with user interaction. A droppable view provides an area in which a draggable view can be dropped. AJWDraggableDroppable allows you to identify a view as a draggable or droppable, and provides a mechanism for responding to events involving the two.
 
 Features:
@@ -13,8 +15,6 @@ Features:
 - Manage separate collections of draggable and droppable views.
 
 ![demo-vid](resources/demo.mp4.gif)
-
-AJWDraggableDroppable was created for [Maneki](http://maneki.io) for iOS (an early version shown in the demo).
 
 ## Installation
 
